@@ -356,7 +356,8 @@ async def _select_country(chat_id: int, user, country: dict, state: FSMContext):
 
     if live_data["gold"]:
         g = live_data["gold"]
-        summary += f"🥇 <b>الذهب:</b> {fmt(g['current_gram_local'])} {country['currency_name']}/جرام\n"
+        fb_tag = " <i>(تقديري)</i>" if g.get("is_fallback") else ""
+        summary += f"🥇 <b>الذهب:</b> {fmt(g['current_gram_local'])} {country['currency_name']}/جرام{fb_tag}\n"
         summary += f"   <i>(${fmt(g['current_gram_usd'])} عالمياً)</i>\n\n"
 
     if live_data["hard_currency"]:
@@ -567,9 +568,9 @@ async def calculate_and_send(chat_id: int, data: dict, state: FSMContext):
             f"{PHARAOH_LINE}\n\n"
             f"{GOLD_DIAMOND} المبلغ: <b>{fmt(amount)} {currency_name}</b>\n"
             f"{GOLD_DIAMOND} المدة: <b>{dur_text}</b>\n\n"
-            f"📊 <b>أسعار لحظية:</b>\n"
+            f"📊 <b>أسعار {'تقديرية' if gold.get('is_fallback') else 'لحظية'}:</b>\n"
             f"   سعر الجرام الآن: <b>{fmt(current_price)} {currency_name}</b>\n"
-            f"   (${fmt(gold['current_gram_usd'])} عالمياً)\n\n"
+            f"   (${fmt(gold['current_gram_usd'])} عالمياً){' ⚠️ تقديري' if gold.get('is_fallback') else ''}\n\n"
             f"🔮 <b>التوقعات</b> (نمو {gold['growth_rate']}% سنوياً):\n"
             f"   السعر المتوقع بعد {dur_text}: <b>{fmt(expected_price)} {currency_name}</b>\n\n"
             f"{'─' * 20}\n"
