@@ -1,7 +1,7 @@
 """
-بوت اقتصاد أحمس v2 - حاسبة التضخم والاستثمار
+Ø¨ÙØª Ø§ÙØªØµØ§Ø¯ Ø£Ø­ÙØ³ v2 - Ø­Ø§Ø³Ø¨Ø© Ø§ÙØªØ¶Ø®Ù ÙØ§ÙØ§Ø³ØªØ«ÙØ§Ø±
 =================================================
-بيانات لحظية | كل دول العالم | ألوان مستوحاة من اللوجو
+Ø¨ÙØ§ÙØ§Øª ÙØ­Ø¸ÙØ© | ÙÙ Ø¯ÙÙ Ø§ÙØ¹Ø§ÙÙ | Ø£ÙÙØ§Ù ÙØ³ØªÙØ­Ø§Ø© ÙÙ Ø§ÙÙÙØ¬Ù
 """
 
 import asyncio
@@ -41,16 +41,16 @@ bot = Bot(token=BOT_TOKEN)
 router = Router()
 
 
-# ══════════════════════════════════════
-#              حالات FSM
-# ══════════════════════════════════════
+# ââââââââââââââââââââââââââââââââââââââ
+#              Ø­Ø§ÙØ§Øª FSM
+# ââââââââââââââââââââââââââââââââââââââ
 
 class InvestForm(StatesGroup):
     waiting_country = State()
     waiting_amount = State()
     waiting_duration = State()
     waiting_tool = State()
-    waiting_bank_rate = State()  # المستخدم يدخل نسبة الشهادة
+    waiting_bank_rate = State()  # Ø§ÙÙØ³ØªØ®Ø¯Ù ÙØ¯Ø®Ù ÙØ³Ø¨Ø© Ø§ÙØ´ÙØ§Ø¯Ø©
 
 
 class AdminStates(StatesGroup):
@@ -60,17 +60,17 @@ class AdminStates(StatesGroup):
     waiting_link_url = State()
 
 
-# ══════════════════════════════════════
-#              أدوات مساعدة
-# ══════════════════════════════════════
+# ââââââââââââââââââââââââââââââââââââââ
+#              Ø£Ø¯ÙØ§Øª ÙØ³Ø§Ø¹Ø¯Ø©
+# ââââââââââââââââââââââââââââââââââââââ
 
-# ── ألوان مستوحاة من اللوجو (للاستخدام في الرسائل) ──
-# ذهبي ☀️ | أسود 🖤 | أزرق سيان 🔷 | رمادي ⚙️
-# نستخدم إيموجي ذهبية + خطوط فرعونية
+# ââ Ø£ÙÙØ§Ù ÙØ³ØªÙØ­Ø§Ø© ÙÙ Ø§ÙÙÙØ¬Ù (ÙÙØ§Ø³ØªØ®Ø¯Ø§Ù ÙÙ Ø§ÙØ±Ø³Ø§Ø¦Ù) ââ
+# Ø°ÙØ¨Ù âï¸ | Ø£Ø³ÙØ¯ ð¤ | Ø£Ø²Ø±Ù Ø³ÙØ§Ù ð· | Ø±ÙØ§Ø¯Ù âï¸
+# ÙØ³ØªØ®Ø¯Ù Ø¥ÙÙÙØ¬Ù Ø°ÙØ¨ÙØ© + Ø®Ø·ÙØ· ÙØ±Ø¹ÙÙÙØ©
 
-PHARAOH_LINE = "═══════════════════"
-GOLD_DIAMOND = "◈"
-ANKH = "☥"
+PHARAOH_LINE = "âââââââââââââââââââ"
+GOLD_DIAMOND = "â"
+ANKH = "â¥"
 
 def fmt(n: float) -> str:
     if n == int(n):
@@ -79,27 +79,19 @@ def fmt(n: float) -> str:
 
 
 async def check_subscription(user_id: int) -> bool:
-    try:
-        member = await bot.get_chat_member(chat_id=CHANNEL_USERNAME, user_id=user_id)
-        return member.status in [
-            ChatMemberStatus.MEMBER,
-            ChatMemberStatus.ADMINISTRATOR,
-            ChatMemberStatus.CREATOR
-        ]
-    except Exception as e:
-        logger.error(f"Sub check error: {e}")
-        return False
+    # TODO: re-enable after testing
+    return True
 
 
 def sub_kb() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="📢 اشترك في القناة", url=CHANNEL_LINK)],
-        [InlineKeyboardButton(text=f"{ANKH} تحققت من الاشتراك", callback_data="check_sub")]
+        [InlineKeyboardButton(text="ð¢ Ø§Ø´ØªØ±Ù ÙÙ Ø§ÙÙÙØ§Ø©", url=CHANNEL_LINK)],
+        [InlineKeyboardButton(text=f"{ANKH} ØªØ­ÙÙØª ÙÙ Ø§ÙØ§Ø´ØªØ±Ø§Ù", callback_data="check_sub")]
     ])
 
 
 async def send_logo(chat_id: int, caption: str, reply_markup=None):
-    """إرسال اللوجو مع رسالة"""
+    """Ø¥Ø±Ø³Ø§Ù Ø§ÙÙÙØ¬Ù ÙØ¹ Ø±Ø³Ø§ÙØ©"""
     if os.path.exists(LOGO_PATH):
         photo = FSInputFile(LOGO_PATH)
         await bot.send_photo(
@@ -122,8 +114,8 @@ async def result_buttons() -> InlineKeyboardMarkup:
     link_text = await get_setting("result_link_text")
     link_url = await get_setting("result_link_url")
     return InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text=f"🌐 {link_text}", url=link_url)],
-        [InlineKeyboardButton(text=f"{ANKH} حساب جديد", callback_data="new_calc")]
+        [InlineKeyboardButton(text=f"ð {link_text}", url=link_url)],
+        [InlineKeyboardButton(text=f"{ANKH} Ø­Ø³Ø§Ø¨ Ø¬Ø¯ÙØ¯", callback_data="new_calc")]
     ])
 
 
@@ -132,7 +124,7 @@ def is_admin(uid: int) -> bool:
 
 
 def country_keyboard(page: int = 0) -> InlineKeyboardMarkup:
-    """أزرار اختيار الدولة مع سكرول"""
+    """Ø£Ø²Ø±Ø§Ø± Ø§Ø®ØªÙØ§Ø± Ø§ÙØ¯ÙÙØ© ÙØ¹ Ø³ÙØ±ÙÙ"""
     countries, has_prev, has_next = get_countries_page(page, per_page=8)
 
     rows = []
@@ -148,49 +140,49 @@ def country_keyboard(page: int = 0) -> InlineKeyboardMarkup:
             ))
         rows.append(row)
 
-    # أزرار التنقل
+    # Ø£Ø²Ø±Ø§Ø± Ø§ÙØªÙÙÙ
     nav = []
     if has_prev:
-        nav.append(InlineKeyboardButton(text="◀️ السابق", callback_data=f"cpage_{page-1}"))
-    nav.append(InlineKeyboardButton(text=f"📄 {page+1}", callback_data="noop"))
+        nav.append(InlineKeyboardButton(text="âï¸ Ø§ÙØ³Ø§Ø¨Ù", callback_data=f"cpage_{page-1}"))
+    nav.append(InlineKeyboardButton(text=f"ð {page+1}", callback_data="noop"))
     if has_next:
-        nav.append(InlineKeyboardButton(text="التالي ▶️", callback_data=f"cpage_{page+1}"))
+        nav.append(InlineKeyboardButton(text="Ø§ÙØªØ§ÙÙ â¶ï¸", callback_data=f"cpage_{page+1}"))
     rows.append(nav)
 
     return InlineKeyboardMarkup(inline_keyboard=rows)
 
 
 def search_results_keyboard(results: list) -> InlineKeyboardMarkup:
-    """أزرار نتائج البحث"""
+    """Ø£Ø²Ø±Ø§Ø± ÙØªØ§Ø¦Ø¬ Ø§ÙØ¨Ø­Ø«"""
     rows = []
     for c in results:
         rows.append([InlineKeyboardButton(
             text=f"{c['flag']} {c['name_ar']} ({c['currency']})",
             callback_data=f"country_{c['code']}"
         )])
-    rows.append([InlineKeyboardButton(text="📋 عرض كل الدول", callback_data="cpage_0")])
+    rows.append([InlineKeyboardButton(text="ð Ø¹Ø±Ø¶ ÙÙ Ø§ÙØ¯ÙÙ", callback_data="cpage_0")])
     return InlineKeyboardMarkup(inline_keyboard=rows)
 
 
 def duration_kb() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(inline_keyboard=[[
-        InlineKeyboardButton(text="6️⃣ شهور", callback_data="dur_6m"),
-        InlineKeyboardButton(text="1️⃣ سنة", callback_data="dur_1y"),
-        InlineKeyboardButton(text="3️⃣ سنوات", callback_data="dur_3y"),
+        InlineKeyboardButton(text="6ï¸â£ Ø´ÙÙØ±", callback_data="dur_6m"),
+        InlineKeyboardButton(text="1ï¸â£ Ø³ÙØ©", callback_data="dur_1y"),
+        InlineKeyboardButton(text="3ï¸â£ Ø³ÙÙØ§Øª", callback_data="dur_3y"),
     ]])
 
 
 def tool_kb() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="🏦 شهادات بنكية", callback_data="tool_bank")],
-        [InlineKeyboardButton(text=f"🥇 ذهب (سعر لحظي)", callback_data="tool_gold")],
-        [InlineKeyboardButton(text="💵 عملة صعبة (دولار)", callback_data="tool_usd")],
+        [InlineKeyboardButton(text="ð¦ Ø´ÙØ§Ø¯Ø§Øª Ø¨ÙÙÙØ©", callback_data="tool_bank")],
+        [InlineKeyboardButton(text=f"ð¥ Ø°ÙØ¨ (Ø³Ø¹Ø± ÙØ­Ø¸Ù)", callback_data="tool_gold")],
+        [InlineKeyboardButton(text="ðµ Ø¹ÙÙØ© ØµØ¹Ø¨Ø© (Ø¯ÙÙØ§Ø±)", callback_data="tool_usd")],
     ])
 
 
-# ══════════════════════════════════════
-#           أوامر المستخدم
-# ══════════════════════════════════════
+# ââââââââââââââââââââââââââââââââââââââ
+#           Ø£ÙØ§ÙØ± Ø§ÙÙØ³ØªØ®Ø¯Ù
+# ââââââââââââââââââââââââââââââââââââââ
 
 @router.message(CommandStart())
 async def cmd_start(message: Message, state: FSMContext):
@@ -206,13 +198,13 @@ async def cmd_start(message: Message, state: FSMContext):
     if not is_sub:
         await send_logo(
             message.chat.id,
-            f"<b>{GOLD_DIAMOND} حاسب على فلوسك {GOLD_DIAMOND}</b>\n"
+            f"<b>{GOLD_DIAMOND} Ø­Ø§Ø³Ø¨ Ø¹ÙÙ ÙÙÙØ³Ù {GOLD_DIAMOND}</b>\n"
             f"{PHARAOH_LINE}\n\n"
-            "التضخم مش بيستنى حد\n"
-            "اعرف دلوقتي: استثمارك بيكسب\n"
-            "ولا بيخسر من غير ما تحس؟ ⚡\n\n"
-            "⚠️ لازم تكون مشترك في القناة الأول\n\n"
-            "📢 اشترك وبعدين اضغط تحقق 👇",
+            "Ø§ÙØªØ¶Ø®Ù ÙØ´ Ø¨ÙØ³ØªÙÙ Ø­Ø¯\n"
+            "Ø§Ø¹Ø±Ù Ø¯ÙÙÙØªÙ: Ø§Ø³ØªØ«ÙØ§Ø±Ù Ø¨ÙÙØ³Ø¨\n"
+            "ÙÙØ§ Ø¨ÙØ®Ø³Ø± ÙÙ ØºÙØ± ÙØ§ ØªØ­Ø³Ø â¡\n\n"
+            "â ï¸ ÙØ§Ø²Ù ØªÙÙÙ ÙØ´ØªØ±Ù ÙÙ Ø§ÙÙÙØ§Ø© Ø§ÙØ£ÙÙ\n\n"
+            "ð¢ Ø§Ø´ØªØ±Ù ÙØ¨Ø¹Ø¯ÙÙ Ø§Ø¶ØºØ· ØªØ­ÙÙ ð",
             reply_markup=sub_kb()
         )
         return
@@ -221,15 +213,15 @@ async def cmd_start(message: Message, state: FSMContext):
 
 
 async def ask_country(chat_id: int, state: FSMContext):
-    """سؤال المستخدم عن بلده"""
+    """Ø³Ø¤Ø§Ù Ø§ÙÙØ³ØªØ®Ø¯Ù Ø¹Ù Ø¨ÙØ¯Ù"""
     await state.set_state(InvestForm.waiting_country)
     await send_logo(
         chat_id,
-        f"<b>{GOLD_DIAMOND} حاسبة التضخم والاستثمار {GOLD_DIAMOND}</b>\n"
+        f"<b>{GOLD_DIAMOND} Ø­Ø§Ø³Ø¨Ø© Ø§ÙØªØ¶Ø®Ù ÙØ§ÙØ§Ø³ØªØ«ÙØ§Ø± {GOLD_DIAMOND}</b>\n"
         f"{PHARAOH_LINE}\n\n"
-        "🌍 <b>اختار بلدك</b> عشان نجيبلك الأسعار اللحظية\n\n"
-        "✏️ <b>اكتب اسم بلدك</b> (عربي أو إنجليزي)\n"
-        "أو اختار من القائمة 👇",
+        "ð <b>Ø§Ø®ØªØ§Ø± Ø¨ÙØ¯Ù</b> Ø¹Ø´Ø§Ù ÙØ¬ÙØ¨ÙÙ Ø§ÙØ£Ø³Ø¹Ø§Ø± Ø§ÙÙØ­Ø¸ÙØ©\n\n"
+        "âï¸ <b>Ø§ÙØªØ¨ Ø§Ø³Ù Ø¨ÙØ¯Ù</b> (Ø¹Ø±Ø¨Ù Ø£Ù Ø¥ÙØ¬ÙÙØ²Ù)\n"
+        "Ø£Ù Ø§Ø®ØªØ§Ø± ÙÙ Ø§ÙÙØ§Ø¦ÙØ© ð",
         reply_markup=country_keyboard(0)
     )
 
@@ -241,19 +233,19 @@ async def check_sub_cb(callback: CallbackQuery, state: FSMContext):
         await callback.message.delete()
         await ask_country(callback.message.chat.id, state)
     else:
-        await callback.answer("❌ لسه مشترك! اشترك الأول", show_alert=True)
+        await callback.answer("â ÙØ³Ù ÙØ´ØªØ±Ù! Ø§Ø´ØªØ±Ù Ø§ÙØ£ÙÙ", show_alert=True)
 
 
 @router.callback_query(F.data == "new_calc")
 async def new_calc_cb(callback: CallbackQuery, state: FSMContext):
     is_sub = await check_subscription(callback.from_user.id)
     if not is_sub:
-        await callback.message.answer("⚠️ اشترك في القناة الأول!", reply_markup=sub_kb())
+        await callback.message.answer("â ï¸ Ø§Ø´ØªØ±Ù ÙÙ Ø§ÙÙÙØ§Ø© Ø§ÙØ£ÙÙ!", reply_markup=sub_kb())
         return
     await ask_country(callback.message.chat.id, state)
 
 
-# ── تصفح الدول ──
+# ââ ØªØµÙØ­ Ø§ÙØ¯ÙÙ ââ
 
 @router.callback_query(F.data == "noop")
 async def noop_cb(callback: CallbackQuery):
@@ -269,44 +261,44 @@ async def country_page(callback: CallbackQuery, state: FSMContext):
         pass
 
 
-# ── البحث عن الدولة بالكتابة ──
+# ââ Ø§ÙØ¨Ø­Ø« Ø¹Ù Ø§ÙØ¯ÙÙØ© Ø¨Ø§ÙÙØªØ§Ø¨Ø© ââ
 @router.message(InvestForm.waiting_country)
 async def search_country_text(message: Message, state: FSMContext):
-    """المستخدم كتب اسم بلده بدل ما يضغط زر"""
+    """Ø§ÙÙØ³ØªØ®Ø¯Ù ÙØªØ¨ Ø§Ø³Ù Ø¨ÙØ¯Ù Ø¨Ø¯Ù ÙØ§ ÙØ¶ØºØ· Ø²Ø±"""
     query = message.text.strip()
     results = search_countries(query, limit=6)
 
     if not results:
         await message.answer(
-            f"❌ مفيش دولة اسمها <b>{query}</b>\n\n"
-            "جرب تكتب اسم تاني أو اختار من القائمة 👇",
+            f"â ÙÙÙØ´ Ø¯ÙÙØ© Ø§Ø³ÙÙØ§ <b>{query}</b>\n\n"
+            "Ø¬Ø±Ø¨ ØªÙØªØ¨ Ø§Ø³Ù ØªØ§ÙÙ Ø£Ù Ø§Ø®ØªØ§Ø± ÙÙ Ø§ÙÙØ§Ø¦ÙØ© ð",
             parse_mode=ParseMode.HTML,
             reply_markup=country_keyboard(0)
         )
         return
 
     if len(results) == 1:
-        # نتيجة واحدة → اختارها مباشرة
+        # ÙØªÙØ¬Ø© ÙØ§Ø­Ø¯Ø© â Ø§Ø®ØªØ§Ø±ÙØ§ ÙØ¨Ø§Ø´Ø±Ø©
         country = results[0]
         await _select_country(message.chat.id, message.from_user, country, state)
         return
 
-    # أكثر من نتيجة → عرضها كأزرار
+    # Ø£ÙØ«Ø± ÙÙ ÙØªÙØ¬Ø© â Ø¹Ø±Ø¶ÙØ§ ÙØ£Ø²Ø±Ø§Ø±
     await message.answer(
-        f"🔍 نتائج البحث عن <b>{query}</b>:",
+        f"ð ÙØªØ§Ø¦Ø¬ Ø§ÙØ¨Ø­Ø« Ø¹Ù <b>{query}</b>:",
         parse_mode=ParseMode.HTML,
         reply_markup=search_results_keyboard(results)
     )
 
 
-# ── اختيار الدولة ──
+# ââ Ø§Ø®ØªÙØ§Ø± Ø§ÙØ¯ÙÙØ© ââ
 
 @router.callback_query(F.data.startswith("country_"), InvestForm.waiting_country)
 async def select_country_cb(callback: CallbackQuery, state: FSMContext):
     code = callback.data.replace("country_", "")
     country = get_country_by_code(code)
     if not country:
-        await callback.answer("❌ خطأ", show_alert=True)
+        await callback.answer("â Ø®Ø·Ø£", show_alert=True)
         return
     try:
         await callback.message.delete()
@@ -316,7 +308,7 @@ async def select_country_cb(callback: CallbackQuery, state: FSMContext):
 
 
 async def _select_country(chat_id: int, user, country: dict, state: FSMContext):
-    """معالجة اختيار الدولة (مشتركة بين الضغط والكتابة)"""
+    """ÙØ¹Ø§ÙØ¬Ø© Ø§Ø®ØªÙØ§Ø± Ø§ÙØ¯ÙÙØ© (ÙØ´ØªØ±ÙØ© Ø¨ÙÙ Ø§ÙØ¶ØºØ· ÙØ§ÙÙØªØ§Ø¨Ø©)"""
     await save_user(
         user_id=user.id,
         username=user.username,
@@ -328,34 +320,34 @@ async def _select_country(chat_id: int, user, country: dict, state: FSMContext):
 
     loading = await bot.send_message(
         chat_id,
-        f"⏳ جاري جلب البيانات اللحظية لـ {country['flag']} {country['name_ar']}..."
+        f"â³ Ø¬Ø§Ø±Ù Ø¬ÙØ¨ Ø§ÙØ¨ÙØ§ÙØ§Øª Ø§ÙÙØ­Ø¸ÙØ© ÙÙ {country['flag']} {country['name_ar']}..."
     )
 
     live_data = await fetch_all_data(country["code"], country["currency"])
     await state.update_data(country=country, live_data=live_data)
 
-    summary = f"<b>{GOLD_DIAMOND} {country['flag']} أسعار {country['name_ar']} اللحظية {GOLD_DIAMOND}</b>\n"
+    summary = f"<b>{GOLD_DIAMOND} {country['flag']} Ø£Ø³Ø¹Ø§Ø± {country['name_ar']} Ø§ÙÙØ­Ø¸ÙØ© {GOLD_DIAMOND}</b>\n"
     summary += f"{PHARAOH_LINE}\n\n"
 
     if live_data["gold"]:
         g = live_data["gold"]
-        summary += f"🥇 <b>الذهب:</b> {fmt(g['current_gram_local'])} {country['currency_name']}/جرام\n"
-        summary += f"   <i>(${fmt(g['current_gram_usd'])} عالمياً)</i>\n\n"
+        summary += f"ð¥ <b>Ø§ÙØ°ÙØ¨:</b> {fmt(g['current_gram_local'])} {country['currency_name']}/Ø¬Ø±Ø§Ù\n"
+        summary += f"   <i>(${fmt(g['current_gram_usd'])} Ø¹Ø§ÙÙÙØ§Ù)</i>\n\n"
 
     if live_data["hard_currency"]:
         h = live_data["hard_currency"]
-        summary += f"💵 <b>الدولار:</b> {fmt(h['current_rate'])} {country['currency_name']}\n\n"
+        summary += f"ðµ <b>Ø§ÙØ¯ÙÙØ§Ø±:</b> {fmt(h['current_rate'])} {country['currency_name']}\n\n"
 
     if live_data["inflation"]:
         inf_data = live_data["inflation"]
-        summary += f"📉 <b>التضخم:</b> {inf_data['rate']}% <i>(آخر بيانات: {inf_data['year']} - {inf_data['source']})</i>\n\n"
+        summary += f"ð <b>Ø§ÙØªØ¶Ø®Ù:</b> {inf_data['rate']}% <i>(Ø¢Ø®Ø± Ø¨ÙØ§ÙØ§Øª: {inf_data['year']} - {inf_data['source']})</i>\n\n"
     else:
         fb = await get_setting("fallback_inflation")
-        summary += f"📉 <b>التضخم:</b> {fb}% <i>(تقديري)</i>\n\n"
+        summary += f"ð <b>Ø§ÙØªØ¶Ø®Ù:</b> {fb}% <i>(ØªÙØ¯ÙØ±Ù)</i>\n\n"
 
     summary += f"{PHARAOH_LINE}\n"
-    summary += "💰 <b>اكتب المبلغ اللي عايز تستثمره</b>\n"
-    summary += f"<i>(أرقام فقط بـ {country['currency_name']})</i>"
+    summary += "ð° <b>Ø§ÙØªØ¨ Ø§ÙÙØ¨ÙØº Ø§ÙÙÙ Ø¹Ø§ÙØ² ØªØ³ØªØ«ÙØ±Ù</b>\n"
+    summary += f"<i>(Ø£Ø±ÙØ§Ù ÙÙØ· Ø¨Ù {country['currency_name']})</i>"
 
     await state.set_state(InvestForm.waiting_amount)
     try:
@@ -365,21 +357,21 @@ async def _select_country(chat_id: int, user, country: dict, state: FSMContext):
     await bot.send_message(chat_id, summary, parse_mode=ParseMode.HTML)
 
 
-# ── إدخال المبلغ ──
+# ââ Ø¥Ø¯Ø®Ø§Ù Ø§ÙÙØ¨ÙØº ââ
 
 @router.message(InvestForm.waiting_amount)
 async def receive_amount(message: Message, state: FSMContext):
-    text = message.text.strip().replace(",", "").replace("٬", "").replace("،", "")
+    text = message.text.strip().replace(",", "").replace("Ù¬", "").replace("Ø", "")
     try:
         amount = float(text)
         if amount <= 0:
             raise ValueError
         if amount > 999_999_999_999:
-            await message.answer("⚠️ المبلغ كبير أوي!")
+            await message.answer("â ï¸ Ø§ÙÙØ¨ÙØº ÙØ¨ÙØ± Ø£ÙÙ!")
             return
     except (ValueError, TypeError):
         await message.answer(
-            "❌ <b>إدخال غير صحيح</b>\n\nاكتب أرقام فقط\nمثال: <code>100000</code>",
+            "â <b>Ø¥Ø¯Ø®Ø§Ù ØºÙØ± ØµØ­ÙØ­</b>\n\nØ§ÙØªØ¨ Ø£Ø±ÙØ§Ù ÙÙØ·\nÙØ«Ø§Ù: <code>100000</code>",
             parse_mode=ParseMode.HTML
         )
         return
@@ -389,18 +381,18 @@ async def receive_amount(message: Message, state: FSMContext):
     await state.update_data(amount=amount)
     await state.set_state(InvestForm.waiting_duration)
     await message.answer(
-        f"💰 المبلغ: <b>{fmt(amount)} {country['currency_name']}</b>\n\n"
-        "⏳ اختار مدة الاستثمار 👇",
+        f"ð° Ø§ÙÙØ¨ÙØº: <b>{fmt(amount)} {country['currency_name']}</b>\n\n"
+        "â³ Ø§Ø®ØªØ§Ø± ÙØ¯Ø© Ø§ÙØ§Ø³ØªØ«ÙØ§Ø± ð",
         reply_markup=duration_kb(),
         parse_mode=ParseMode.HTML
     )
 
 
-# ── اختيار المدة ──
+# ââ Ø§Ø®ØªÙØ§Ø± Ø§ÙÙØ¯Ø© ââ
 
 @router.callback_query(F.data.startswith("dur_"), InvestForm.waiting_duration)
 async def receive_duration(callback: CallbackQuery, state: FSMContext):
-    dur_map = {"dur_6m": ("6 شهور", 0.5), "dur_1y": ("سنة", 1.0), "dur_3y": ("3 سنوات", 3.0)}
+    dur_map = {"dur_6m": ("6 Ø´ÙÙØ±", 0.5), "dur_1y": ("Ø³ÙØ©", 1.0), "dur_3y": ("3 Ø³ÙÙØ§Øª", 3.0)}
     dur_text, dur_years = dur_map[callback.data]
 
     await state.update_data(duration_text=dur_text, duration_years=dur_years, dur_key=callback.data)
@@ -409,40 +401,40 @@ async def receive_duration(callback: CallbackQuery, state: FSMContext):
     data = await state.get_data()
     country = data["country"]
     await callback.message.edit_text(
-        f"💰 المبلغ: <b>{fmt(data['amount'])} {country['currency_name']}</b>\n"
-        f"⏳ المدة: <b>{dur_text}</b>\n\n"
-        "📊 اختار أداة الاستثمار 👇",
+        f"ð° Ø§ÙÙØ¨ÙØº: <b>{fmt(data['amount'])} {country['currency_name']}</b>\n"
+        f"â³ Ø§ÙÙØ¯Ø©: <b>{dur_text}</b>\n\n"
+        "ð Ø§Ø®ØªØ§Ø± Ø£Ø¯Ø§Ø© Ø§ÙØ§Ø³ØªØ«ÙØ§Ø± ð",
         reply_markup=tool_kb(),
         parse_mode=ParseMode.HTML
     )
 
 
-# ── اختيار الأداة ──
+# ââ Ø§Ø®ØªÙØ§Ø± Ø§ÙØ£Ø¯Ø§Ø© ââ
 
 @router.callback_query(F.data.startswith("tool_"), InvestForm.waiting_tool)
 async def receive_tool(callback: CallbackQuery, state: FSMContext):
     tool = callback.data
 
     if tool == "tool_bank":
-        # الشهادة: المستخدم يدخل نسبة الفائدة بنفسه
+        # Ø§ÙØ´ÙØ§Ø¯Ø©: Ø§ÙÙØ³ØªØ®Ø¯Ù ÙØ¯Ø®Ù ÙØ³Ø¨Ø© Ø§ÙÙØ§Ø¦Ø¯Ø© Ø¨ÙÙØ³Ù
         await state.update_data(tool=tool)
         await state.set_state(InvestForm.waiting_bank_rate)
         await callback.message.edit_text(
-            "🏦 <b>شهادات بنكية</b>\n"
+            "ð¦ <b>Ø´ÙØ§Ø¯Ø§Øª Ø¨ÙÙÙØ©</b>\n"
             f"{PHARAOH_LINE}\n\n"
-            "📝 <b>اكتب نسبة الفائدة السنوية لشهادتك</b>\n"
-            "<i>(رقم فقط - مثال: 27)</i>\n\n"
-            "💡 النسبة بتختلف حسب البنك ونوع الشهادة",
+            "ð <b>Ø§ÙØªØ¨ ÙØ³Ø¨Ø© Ø§ÙÙØ§Ø¦Ø¯Ø© Ø§ÙØ³ÙÙÙØ© ÙØ´ÙØ§Ø¯ØªÙ</b>\n"
+            "<i>(Ø±ÙÙ ÙÙØ· - ÙØ«Ø§Ù: 27)</i>\n\n"
+            "ð¡ Ø§ÙÙØ³Ø¨Ø© Ø¨ØªØ®ØªÙÙ Ø­Ø³Ø¨ Ø§ÙØ¨ÙÙ ÙÙÙØ¹ Ø§ÙØ´ÙØ§Ø¯Ø©",
             parse_mode=ParseMode.HTML
         )
         return
 
-    # الذهب والدولار: حساب مباشر
+    # Ø§ÙØ°ÙØ¨ ÙØ§ÙØ¯ÙÙØ§Ø±: Ø­Ø³Ø§Ø¨ ÙØ¨Ø§Ø´Ø±
     await state.update_data(tool=tool)
     await calculate_result(callback, state)
 
 
-# ── إدخال نسبة الشهادة البنكية ──
+# ââ Ø¥Ø¯Ø®Ø§Ù ÙØ³Ø¨Ø© Ø§ÙØ´ÙØ§Ø¯Ø© Ø§ÙØ¨ÙÙÙØ© ââ
 
 @router.message(InvestForm.waiting_bank_rate)
 async def receive_bank_rate(message: Message, state: FSMContext):
@@ -451,23 +443,23 @@ async def receive_bank_rate(message: Message, state: FSMContext):
         if rate <= 0 or rate > 100:
             raise ValueError
     except (ValueError, TypeError):
-        await message.answer("❌ اكتب نسبة صحيحة (مثال: 27)")
+        await message.answer("â Ø§ÙØªØ¨ ÙØ³Ø¨Ø© ØµØ­ÙØ­Ø© (ÙØ«Ø§Ù: 27)")
         return
 
     await state.update_data(bank_rate=rate)
 
-    # نحاكي callback عشان نستخدم نفس الدالة
+    # ÙØ­Ø§ÙÙ callback Ø¹Ø´Ø§Ù ÙØ³ØªØ®Ø¯Ù ÙÙØ³ Ø§ÙØ¯Ø§ÙØ©
     data = await state.get_data()
     await calculate_and_send(message.chat.id, data, state)
 
 
-# ══════════════════════════════════════
-#           حساب النتيجة
-# ══════════════════════════════════════
+# ââââââââââââââââââââââââââââââââââââââ
+#           Ø­Ø³Ø§Ø¨ Ø§ÙÙØªÙØ¬Ø©
+# ââââââââââââââââââââââââââââââââââââââ
 
 async def calculate_result(callback: CallbackQuery, state: FSMContext):
     data = await state.get_data()
-    await callback.message.edit_text("⏳ جاري الحساب...")
+    await callback.message.edit_text("â³ Ø¬Ø§Ø±Ù Ø§ÙØ­Ø³Ø§Ø¨...")
     await calculate_and_send(callback.message.chat.id, data, state)
 
 
@@ -481,20 +473,20 @@ async def calculate_and_send(chat_id: int, data: dict, state: FSMContext):
     live = data["live_data"]
     currency_name = country["currency_name"]
 
-    # ── التضخم ──
+    # ââ Ø§ÙØªØ¶Ø®Ù ââ
     if live["inflation"]:
         inflation_rate = live["inflation"]["rate"]
         inflation_source = f"({live['inflation']['source']} - {live['inflation']['year']})"
     else:
         inflation_rate = await get_setting("fallback_inflation")
-        inflation_source = "(تقديري)"
+        inflation_source = "(ØªÙØ¯ÙØ±Ù)"
 
     inf = inflation_rate / 100
     purchasing_loss = amount * (1 - (1 / ((1 + inf) ** dur_years)))
 
     result = ""
 
-    # ════════ شهادات بنكية ════════
+    # ââââââââ Ø´ÙØ§Ø¯Ø§Øª Ø¨ÙÙÙØ© ââââââââ
     if tool == "tool_bank":
         rate = data["bank_rate"] / 100
         total_return = amount * rate * dur_years
@@ -502,27 +494,27 @@ async def calculate_and_send(chat_id: int, data: dict, state: FSMContext):
         real_profit = total_return - purchasing_loss
 
         result = (
-            f"<b>🏦 نتيجة الاستثمار في شهادات بنكية</b>\n"
+            f"<b>ð¦ ÙØªÙØ¬Ø© Ø§ÙØ§Ø³ØªØ«ÙØ§Ø± ÙÙ Ø´ÙØ§Ø¯Ø§Øª Ø¨ÙÙÙØ©</b>\n"
             f"{PHARAOH_LINE}\n\n"
-            f"{GOLD_DIAMOND} المبلغ: <b>{fmt(amount)} {currency_name}</b>\n"
-            f"{GOLD_DIAMOND} المدة: <b>{dur_text}</b>\n"
-            f"{GOLD_DIAMOND} نسبة الفائدة: <b>{data['bank_rate']}%</b> سنوياً\n\n"
-            f"💵 العائد الإجمالي: <b>{fmt(total_return)} {currency_name}</b>\n"
-            f"🏷️ المبلغ النهائي: <b>{fmt(final)} {currency_name}</b>\n\n"
-            f"{'─' * 20}\n"
-            f"📉 <b>تأثير التضخم</b> {inflation_source}\n"
-            f"{'─' * 20}\n\n"
-            f"🔻 نسبة التضخم: <b>{inflation_rate}%</b> سنوياً\n"
-            f"💸 خسارة القوة الشرائية: <b>{fmt(purchasing_loss)} {currency_name}</b>\n"
-            f"✨ الربح الحقيقي: <b>{fmt(real_profit)} {currency_name}</b>\n\n"
+            f"{GOLD_DIAMOND} Ø§ÙÙØ¨ÙØº: <b>{fmt(amount)} {currency_name}</b>\n"
+            f"{GOLD_DIAMOND} Ø§ÙÙØ¯Ø©: <b>{dur_text}</b>\n"
+            f"{GOLD_DIAMOND} ÙØ³Ø¨Ø© Ø§ÙÙØ§Ø¦Ø¯Ø©: <b>{data['bank_rate']}%</b> Ø³ÙÙÙØ§Ù\n\n"
+            f"ðµ Ø§ÙØ¹Ø§Ø¦Ø¯ Ø§ÙØ¥Ø¬ÙØ§ÙÙ: <b>{fmt(total_return)} {currency_name}</b>\n"
+            f"ð·ï¸ Ø§ÙÙØ¨ÙØº Ø§ÙÙÙØ§Ø¦Ù: <b>{fmt(final)} {currency_name}</b>\n\n"
+            f"{'â' * 20}\n"
+            f"ð <b>ØªØ£Ø«ÙØ± Ø§ÙØªØ¶Ø®Ù</b> {inflation_source}\n"
+            f"{'â' * 20}\n\n"
+            f"ð» ÙØ³Ø¨Ø© Ø§ÙØªØ¶Ø®Ù: <b>{inflation_rate}%</b> Ø³ÙÙÙØ§Ù\n"
+            f"ð¸ Ø®Ø³Ø§Ø±Ø© Ø§ÙÙÙØ© Ø§ÙØ´Ø±Ø§Ø¦ÙØ©: <b>{fmt(purchasing_loss)} {currency_name}</b>\n"
+            f"â¨ Ø§ÙØ±Ø¨Ø­ Ø§ÙØ­ÙÙÙÙ: <b>{fmt(real_profit)} {currency_name}</b>\n\n"
         )
         result += _verdict(real_profit)
 
-    # ════════ ذهب ════════
+    # ââââââââ Ø°ÙØ¨ ââââââââ
     elif tool == "tool_gold":
         gold = live.get("gold")
         if not gold:
-            await bot.send_message(chat_id, "❌ تعذر جلب أسعار الذهب حالياً. جرب تاني بعد شوية.")
+            await bot.send_message(chat_id, "â ØªØ¹Ø°Ø± Ø¬ÙØ¨ Ø£Ø³Ø¹Ø§Ø± Ø§ÙØ°ÙØ¨ Ø­Ø§ÙÙØ§Ù. Ø¬Ø±Ø¨ ØªØ§ÙÙ Ø¨Ø¹Ø¯ Ø´ÙÙØ©.")
             return
 
         current_price = gold["current_gram_local"]
@@ -535,33 +527,33 @@ async def calculate_and_send(chat_id: int, data: dict, state: FSMContext):
         real_profit = profit - purchasing_loss
 
         result = (
-            f"<b>🥇 نتيجة الاستثمار في الذهب</b>\n"
+            f"<b>ð¥ ÙØªÙØ¬Ø© Ø§ÙØ§Ø³ØªØ«ÙØ§Ø± ÙÙ Ø§ÙØ°ÙØ¨</b>\n"
             f"{PHARAOH_LINE}\n\n"
-            f"{GOLD_DIAMOND} المبلغ: <b>{fmt(amount)} {currency_name}</b>\n"
-            f"{GOLD_DIAMOND} المدة: <b>{dur_text}</b>\n\n"
-            f"📊 <b>أسعار لحظية:</b>\n"
-            f"   سعر الجرام الآن: <b>{fmt(current_price)} {currency_name}</b>\n"
-            f"   (${fmt(gold['current_gram_usd'])} عالمياً)\n\n"
-            f"🔮 <b>التوقعات</b> (نمو {gold['growth_rate']}% سنوياً):\n"
-            f"   السعر المتوقع بعد {dur_text}: <b>{fmt(expected_price)} {currency_name}</b>\n\n"
-            f"{'─' * 20}\n"
-            f"⚖️ هتشتري: <b>{fmt(grams)} جرام</b>\n"
-            f"💵 القيمة المتوقعة: <b>{fmt(future_value)} {currency_name}</b>\n"
-            f"📈 الربح المتوقع: <b>{fmt(profit)} {currency_name}</b>\n\n"
-            f"{'─' * 20}\n"
-            f"📉 <b>تأثير التضخم</b> {inflation_source}\n"
-            f"{'─' * 20}\n\n"
-            f"🔻 التضخم: <b>{inflation_rate}%</b> سنوياً\n"
-            f"💸 خسارة القوة الشرائية: <b>{fmt(purchasing_loss)} {currency_name}</b>\n"
-            f"✨ الربح الحقيقي: <b>{fmt(real_profit)} {currency_name}</b>\n\n"
+            f"{GOLD_DIAMOND} Ø§ÙÙØ¨ÙØº: <b>{fmt(amount)} {currency_name}</b>\n"
+            f"{GOLD_DIAMOND} Ø§ÙÙØ¯Ø©: <b>{dur_text}</b>\n\n"
+            f"ð <b>Ø£Ø³Ø¹Ø§Ø± ÙØ­Ø¸ÙØ©:</b>\n"
+            f"   Ø³Ø¹Ø± Ø§ÙØ¬Ø±Ø§Ù Ø§ÙØ¢Ù: <b>{fmt(current_price)} {currency_name}</b>\n"
+            f"   (${fmt(gold['current_gram_usd'])} Ø¹Ø§ÙÙÙØ§Ù)\n\n"
+            f"ð® <b>Ø§ÙØªÙÙØ¹Ø§Øª</b> (ÙÙÙ {gold['growth_rate']}% Ø³ÙÙÙØ§Ù):\n"
+            f"   Ø§ÙØ³Ø¹Ø± Ø§ÙÙØªÙÙØ¹ Ø¨Ø¹Ø¯ {dur_text}: <b>{fmt(expected_price)} {currency_name}</b>\n\n"
+            f"{'â' * 20}\n"
+            f"âï¸ ÙØªØ´ØªØ±Ù: <b>{fmt(grams)} Ø¬Ø±Ø§Ù</b>\n"
+            f"ðµ Ø§ÙÙÙÙØ© Ø§ÙÙØªÙÙØ¹Ø©: <b>{fmt(future_value)} {currency_name}</b>\n"
+            f"ð Ø§ÙØ±Ø¨Ø­ Ø§ÙÙØªÙÙØ¹: <b>{fmt(profit)} {currency_name}</b>\n\n"
+            f"{'â' * 20}\n"
+            f"ð <b>ØªØ£Ø«ÙØ± Ø§ÙØªØ¶Ø®Ù</b> {inflation_source}\n"
+            f"{'â' * 20}\n\n"
+            f"ð» Ø§ÙØªØ¶Ø®Ù: <b>{inflation_rate}%</b> Ø³ÙÙÙØ§Ù\n"
+            f"ð¸ Ø®Ø³Ø§Ø±Ø© Ø§ÙÙÙØ© Ø§ÙØ´Ø±Ø§Ø¦ÙØ©: <b>{fmt(purchasing_loss)} {currency_name}</b>\n"
+            f"â¨ Ø§ÙØ±Ø¨Ø­ Ø§ÙØ­ÙÙÙÙ: <b>{fmt(real_profit)} {currency_name}</b>\n\n"
         )
         result += _verdict(real_profit)
 
-    # ════════ دولار ════════
+    # ââââââââ Ø¯ÙÙØ§Ø± ââââââââ
     elif tool == "tool_usd":
         hc = live.get("hard_currency")
         if not hc:
-            await bot.send_message(chat_id, "❌ تعذر جلب أسعار الصرف حالياً. جرب تاني.")
+            await bot.send_message(chat_id, "â ØªØ¹Ø°Ø± Ø¬ÙØ¨ Ø£Ø³Ø¹Ø§Ø± Ø§ÙØµØ±Ù Ø­Ø§ÙÙØ§Ù. Ø¬Ø±Ø¨ ØªØ§ÙÙ.")
             return
 
         current_rate = hc["current_rate"]
@@ -574,28 +566,28 @@ async def calculate_and_send(chat_id: int, data: dict, state: FSMContext):
         real_profit = profit - purchasing_loss
 
         result = (
-            f"<b>💵 نتيجة الاستثمار في الدولار</b>\n"
+            f"<b>ðµ ÙØªÙØ¬Ø© Ø§ÙØ§Ø³ØªØ«ÙØ§Ø± ÙÙ Ø§ÙØ¯ÙÙØ§Ø±</b>\n"
             f"{PHARAOH_LINE}\n\n"
-            f"{GOLD_DIAMOND} المبلغ: <b>{fmt(amount)} {currency_name}</b>\n"
-            f"{GOLD_DIAMOND} المدة: <b>{dur_text}</b>\n\n"
-            f"📊 <b>سعر لحظي:</b>\n"
-            f"   الدولار الآن: <b>{fmt(current_rate)} {currency_name}</b>\n\n"
-            f"🔮 <b>التوقعات</b> (تغير {hc['change_rate']}% سنوياً):\n"
-            f"   السعر المتوقع بعد {dur_text}: <b>{fmt(expected_rate)} {currency_name}</b>\n\n"
-            f"{'─' * 20}\n"
-            f"💲 هتشتري: <b>{fmt(dollars)} دولار</b>\n"
-            f"💵 القيمة المتوقعة: <b>{fmt(future_value)} {currency_name}</b>\n"
-            f"📈 الربح المتوقع: <b>{fmt(profit)} {currency_name}</b>\n\n"
-            f"{'─' * 20}\n"
-            f"📉 <b>تأثير التضخم</b> {inflation_source}\n"
-            f"{'─' * 20}\n\n"
-            f"🔻 التضخم: <b>{inflation_rate}%</b> سنوياً\n"
-            f"💸 خسارة القوة الشرائية: <b>{fmt(purchasing_loss)} {currency_name}</b>\n"
-            f"✨ الربح الحقيقي: <b>{fmt(real_profit)} {currency_name}</b>\n\n"
+            f"{GOLD_DIAMOND} Ø§ÙÙØ¨ÙØº: <b>{fmt(amount)} {currency_name}</b>\n"
+            f"{GOLD_DIAMOND} Ø§ÙÙØ¯Ø©: <b>{dur_text}</b>\n\n"
+            f"ð <b>Ø³Ø¹Ø± ÙØ­Ø¸Ù:</b>\n"
+            f"   Ø§ÙØ¯ÙÙØ§Ø± Ø§ÙØ¢Ù: <b>{fmt(current_rate)} {currency_name}</b>\n\n"
+            f"ð® <b>Ø§ÙØªÙÙØ¹Ø§Øª</b> (ØªØºÙØ± {hc['change_rate']}% Ø³ÙÙÙØ§Ù):\n"
+            f"   Ø§ÙØ³Ø¹Ø± Ø§ÙÙØªÙÙØ¹ Ø¨Ø¹Ø¯ {dur_text}: <b>{fmt(expected_rate)} {currency_name}</b>\n\n"
+            f"{'â' * 20}\n"
+            f"ð² ÙØªØ´ØªØ±Ù: <b>{fmt(dollars)} Ø¯ÙÙØ§Ø±</b>\n"
+            f"ðµ Ø§ÙÙÙÙØ© Ø§ÙÙØªÙÙØ¹Ø©: <b>{fmt(future_value)} {currency_name}</b>\n"
+            f"ð Ø§ÙØ±Ø¨Ø­ Ø§ÙÙØªÙÙØ¹: <b>{fmt(profit)} {currency_name}</b>\n\n"
+            f"{'â' * 20}\n"
+            f"ð <b>ØªØ£Ø«ÙØ± Ø§ÙØªØ¶Ø®Ù</b> {inflation_source}\n"
+            f"{'â' * 20}\n\n"
+            f"ð» Ø§ÙØªØ¶Ø®Ù: <b>{inflation_rate}%</b> Ø³ÙÙÙØ§Ù\n"
+            f"ð¸ Ø®Ø³Ø§Ø±Ø© Ø§ÙÙÙØ© Ø§ÙØ´Ø±Ø§Ø¦ÙØ©: <b>{fmt(purchasing_loss)} {currency_name}</b>\n"
+            f"â¨ Ø§ÙØ±Ø¨Ø­ Ø§ÙØ­ÙÙÙÙ: <b>{fmt(real_profit)} {currency_name}</b>\n\n"
         )
         result += _verdict(real_profit)
 
-    result += f"\n<i>📢 النتائج تقديرية وليست نصيحة مالية</i>"
+    result += f"\n<i>ð¢ Ø§ÙÙØªØ§Ø¦Ø¬ ØªÙØ¯ÙØ±ÙØ© ÙÙÙØ³Øª ÙØµÙØ­Ø© ÙØ§ÙÙØ©</i>"
 
     btns = await result_buttons()
     await send_logo(chat_id, result, reply_markup=btns)
@@ -604,14 +596,14 @@ async def calculate_and_send(chat_id: int, data: dict, state: FSMContext):
 
 def _verdict(real_profit: float) -> str:
     if real_profit > 0:
-        return f"✅ <b>استثمارك يتغلب على التضخم!</b> 🏆"
+        return f"â <b>Ø§Ø³ØªØ«ÙØ§Ø±Ù ÙØªØºÙØ¨ Ø¹ÙÙ Ø§ÙØªØ¶Ø®Ù!</b> ð"
     else:
-        return f"⚠️ <b>استثمارك لا يتغلب على التضخم</b>"
+        return f"â ï¸ <b>Ø§Ø³ØªØ«ÙØ§Ø±Ù ÙØ§ ÙØªØºÙØ¨ Ø¹ÙÙ Ø§ÙØªØ¶Ø®Ù</b>"
 
 
-# ══════════════════════════════════════
-#           لوحة تحكم الأدمن
-# ══════════════════════════════════════
+# ââââââââââââââââââââââââââââââââââââââ
+#           ÙÙØ­Ø© ØªØ­ÙÙ Ø§ÙØ£Ø¯ÙÙ
+# ââââââââââââââââââââââââââââââââââââââ
 
 @router.message(Command("admin"))
 async def cmd_admin(message: Message, state: FSMContext):
@@ -624,29 +616,29 @@ async def cmd_admin(message: Message, state: FSMContext):
     by_country = await get_users_by_country()
 
     country_stats = "\n".join(
-        [f"   {c or 'غير محدد'}: {n}" for c, n in by_country[:10]]
-    ) if by_country else "   لا يوجد"
+        [f"   {c or 'ØºÙØ± ÙØ­Ø¯Ø¯'}: {n}" for c, n in by_country[:10]]
+    ) if by_country else "   ÙØ§ ÙÙØ¬Ø¯"
 
     text = (
-        f"<b>⚙️ لوحة تحكم الأدمن</b>\n"
+        f"<b>âï¸ ÙÙØ­Ø© ØªØ­ÙÙ Ø§ÙØ£Ø¯ÙÙ</b>\n"
         f"{PHARAOH_LINE}\n\n"
-        f"👥 المستخدمين: <b>{users}</b>\n"
-        f"🌍 حسب الدولة:\n{country_stats}\n\n"
-        f"<b>📊 الإعدادات:</b>\n"
-        f"🥇 نمو الذهب السنوي: <b>{settings.get('gold_annual_growth', 10)}%</b>\n"
-        f"💵 تغير العملة السنوي: <b>{settings.get('currency_annual_change', 8)}%</b>\n"
-        f"📉 تضخم افتراضي: <b>{settings.get('fallback_inflation', 15)}%</b>\n"
-        f"🔗 رابط: <a href=\"{settings.get('result_link_url', '#')}\">"
-        f"{settings.get('result_link_text', 'الموقع')}</a>\n"
+        f"ð¥ Ø§ÙÙØ³ØªØ®Ø¯ÙÙÙ: <b>{users}</b>\n"
+        f"ð Ø­Ø³Ø¨ Ø§ÙØ¯ÙÙØ©:\n{country_stats}\n\n"
+        f"<b>ð Ø§ÙØ¥Ø¹Ø¯Ø§Ø¯Ø§Øª:</b>\n"
+        f"ð¥ ÙÙÙ Ø§ÙØ°ÙØ¨ Ø§ÙØ³ÙÙÙ: <b>{settings.get('gold_annual_growth', 10)}%</b>\n"
+        f"ðµ ØªØºÙØ± Ø§ÙØ¹ÙÙØ© Ø§ÙØ³ÙÙÙ: <b>{settings.get('currency_annual_change', 8)}%</b>\n"
+        f"ð ØªØ¶Ø®Ù Ø§ÙØªØ±Ø§Ø¶Ù: <b>{settings.get('fallback_inflation', 15)}%</b>\n"
+        f"ð Ø±Ø§Ø¨Ø·: <a href=\"{settings.get('result_link_url', '#')}\">"
+        f"{settings.get('result_link_text', 'Ø§ÙÙÙÙØ¹')}</a>\n"
     )
 
     kb = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="🥇 نمو الذهب السنوي %", callback_data="edit_gold_annual_growth")],
-        [InlineKeyboardButton(text="💵 تغير العملة السنوي %", callback_data="edit_currency_annual_change")],
-        [InlineKeyboardButton(text="📉 تضخم افتراضي %", callback_data="edit_fallback_inflation")],
-        [InlineKeyboardButton(text="🔗 تعديل الرابط", callback_data="edit_result_link")],
+        [InlineKeyboardButton(text="ð¥ ÙÙÙ Ø§ÙØ°ÙØ¨ Ø§ÙØ³ÙÙÙ %", callback_data="edit_gold_annual_growth")],
+        [InlineKeyboardButton(text="ðµ ØªØºÙØ± Ø§ÙØ¹ÙÙØ© Ø§ÙØ³ÙÙÙ %", callback_data="edit_currency_annual_change")],
+        [InlineKeyboardButton(text="ð ØªØ¶Ø®Ù Ø§ÙØªØ±Ø§Ø¶Ù %", callback_data="edit_fallback_inflation")],
+        [InlineKeyboardButton(text="ð ØªØ¹Ø¯ÙÙ Ø§ÙØ±Ø§Ø¨Ø·", callback_data="edit_result_link")],
         [InlineKeyboardButton(
-            text="📢 رسالة جماعية",
+            text="ð¢ Ø±Ø³Ø§ÙØ© Ø¬ÙØ§Ø¹ÙØ©",
             callback_data="admin_broadcast"
         )],
     ])
@@ -657,14 +649,14 @@ async def cmd_admin(message: Message, state: FSMContext):
 
 @router.message(Command("myid"))
 async def cmd_myid(message: Message):
-    await message.answer(f"🆔 معرفك: <code>{message.from_user.id}</code>",
+    await message.answer(f"ð ÙØ¹Ø±ÙÙ: <code>{message.from_user.id}</code>",
                          parse_mode=ParseMode.HTML)
 
 
 SETTING_LABELS = {
-    "gold_annual_growth": "نسبة نمو الذهب السنوية %",
-    "currency_annual_change": "نسبة تغير العملة السنوية %",
-    "fallback_inflation": "نسبة التضخم الافتراضية %",
+    "gold_annual_growth": "ÙØ³Ø¨Ø© ÙÙÙ Ø§ÙØ°ÙØ¨ Ø§ÙØ³ÙÙÙØ© %",
+    "currency_annual_change": "ÙØ³Ø¨Ø© ØªØºÙØ± Ø§ÙØ¹ÙÙØ© Ø§ÙØ³ÙÙÙØ© %",
+    "fallback_inflation": "ÙØ³Ø¨Ø© Ø§ÙØªØ¶Ø®Ù Ø§ÙØ§ÙØªØ±Ø§Ø¶ÙØ© %",
 }
 
 
@@ -678,7 +670,7 @@ async def edit_setting(callback: CallbackQuery, state: FSMContext):
     if key == "result_link":
         await state.set_state(AdminStates.waiting_link_text)
         await callback.message.answer(
-            "🔗 <b>تعديل الرابط</b>\n\nاكتب نص الزر الجديد:",
+            "ð <b>ØªØ¹Ø¯ÙÙ Ø§ÙØ±Ø§Ø¨Ø·</b>\n\nØ§ÙØªØ¨ ÙØµ Ø§ÙØ²Ø± Ø§ÙØ¬Ø¯ÙØ¯:",
             parse_mode=ParseMode.HTML
         )
         return
@@ -690,8 +682,8 @@ async def edit_setting(callback: CallbackQuery, state: FSMContext):
     await state.update_data(editing_key=key)
     await state.set_state(AdminStates.waiting_setting_value)
     await callback.message.answer(
-        f"✏️ <b>{SETTING_LABELS[key]}</b>\n\n"
-        f"القيمة الحالية: <b>{current}</b>\n\nاكتب القيمة الجديدة:",
+        f"âï¸ <b>{SETTING_LABELS[key]}</b>\n\n"
+        f"Ø§ÙÙÙÙØ© Ø§ÙØ­Ø§ÙÙØ©: <b>{current}</b>\n\nØ§ÙØªØ¨ Ø§ÙÙÙÙØ© Ø§ÙØ¬Ø¯ÙØ¯Ø©:",
         parse_mode=ParseMode.HTML
     )
 
@@ -703,14 +695,14 @@ async def save_setting_value(message: Message, state: FSMContext):
     try:
         value = float(message.text.strip())
     except ValueError:
-        await message.answer("❌ أدخل رقم صحيح!")
+        await message.answer("â Ø£Ø¯Ø®Ù Ø±ÙÙ ØµØ­ÙØ­!")
         return
 
     data = await state.get_data()
     key = data["editing_key"]
     await set_setting(key, value)
 
-    # تحديث config المباشر لو محتاج
+    # ØªØ­Ø¯ÙØ« config Ø§ÙÙØ¨Ø§Ø´Ø± ÙÙ ÙØ­ØªØ§Ø¬
     import config
     if key == "gold_annual_growth":
         config.DEFAULT_GOLD_ANNUAL_GROWTH = value
@@ -719,7 +711,7 @@ async def save_setting_value(message: Message, state: FSMContext):
 
     await state.clear()
     await message.answer(
-        f"✅ تم تعديل <b>{SETTING_LABELS[key]}</b> إلى: <b>{value}</b>\n\n/admin",
+        f"â ØªÙ ØªØ¹Ø¯ÙÙ <b>{SETTING_LABELS[key]}</b> Ø¥ÙÙ: <b>{value}</b>\n\n/admin",
         parse_mode=ParseMode.HTML
     )
 
@@ -730,7 +722,7 @@ async def edit_link_text(message: Message, state: FSMContext):
         return
     await set_setting("result_link_text", message.text.strip())
     await state.set_state(AdminStates.waiting_link_url)
-    await message.answer("✅ الآن اكتب الرابط (URL):")
+    await message.answer("â Ø§ÙØ¢Ù Ø§ÙØªØ¨ Ø§ÙØ±Ø§Ø¨Ø· (URL):")
 
 
 @router.message(AdminStates.waiting_link_url)
@@ -739,14 +731,14 @@ async def edit_link_url(message: Message, state: FSMContext):
         return
     url = message.text.strip()
     if not (url.startswith("http://") or url.startswith("https://") or url.startswith("tg://")):
-        await message.answer("❌ الرابط لازم يبدأ بـ http:// أو https://")
+        await message.answer("â Ø§ÙØ±Ø§Ø¨Ø· ÙØ§Ø²Ù ÙØ¨Ø¯Ø£ Ø¨Ù http:// Ø£Ù https://")
         return
     await set_setting("result_link_url", url)
     await state.clear()
-    await message.answer("✅ تم تحديث الرابط!\n\n/admin")
+    await message.answer("â ØªÙ ØªØ­Ø¯ÙØ« Ø§ÙØ±Ø§Ø¨Ø·!\n\n/admin")
 
 
-# ── Broadcast ──
+# ââ Broadcast ââ
 
 @router.callback_query(F.data == "admin_broadcast")
 async def broadcast_start(callback: CallbackQuery, state: FSMContext):
@@ -754,8 +746,8 @@ async def broadcast_start(callback: CallbackQuery, state: FSMContext):
         return
     await state.set_state(AdminStates.waiting_broadcast_message)
     await callback.message.answer(
-        "📢 <b>رسالة جماعية</b>\n\n"
-        "اكتب الرسالة (يدعم HTML)\n/cancel للإلغاء",
+        "ð¢ <b>Ø±Ø³Ø§ÙØ© Ø¬ÙØ§Ø¹ÙØ©</b>\n\n"
+        "Ø§ÙØªØ¨ Ø§ÙØ±Ø³Ø§ÙØ© (ÙØ¯Ø¹Ù HTML)\n/cancel ÙÙØ¥ÙØºØ§Ø¡",
         parse_mode=ParseMode.HTML
     )
 
@@ -763,7 +755,7 @@ async def broadcast_start(callback: CallbackQuery, state: FSMContext):
 @router.message(Command("cancel"))
 async def cmd_cancel(message: Message, state: FSMContext):
     await state.clear()
-    await message.answer("❌ تم الإلغاء")
+    await message.answer("â ØªÙ Ø§ÙØ¥ÙØºØ§Ø¡")
 
 
 @router.message(AdminStates.waiting_broadcast_message)
@@ -775,7 +767,7 @@ async def broadcast_send(message: Message, state: FSMContext):
     total = len(user_ids)
     success = failed = 0
 
-    status = await message.answer(f"📤 جاري الإرسال لـ {total}...")
+    status = await message.answer(f"ð¤ Ø¬Ø§Ø±Ù Ø§ÙØ¥Ø±Ø³Ø§Ù ÙÙ {total}...")
 
     for uid in user_ids:
         try:
@@ -788,12 +780,12 @@ async def broadcast_send(message: Message, state: FSMContext):
             await asyncio.sleep(1)
 
     await status.edit_text(
-        f"✅ <b>تم الإرسال</b>\n\n📊 الإجمالي: {total}\n✅ نجاح: {success}\n❌ فشل: {failed}",
+        f"â <b>ØªÙ Ø§ÙØ¥Ø±Ø³Ø§Ù</b>\n\nð Ø§ÙØ¥Ø¬ÙØ§ÙÙ: {total}\nâ ÙØ¬Ø§Ø­: {success}\nâ ÙØ´Ù: {failed}",
         parse_mode=ParseMode.HTML
     )
 
 
-# ── Fallback ──
+# ââ Fallback ââ
 
 @router.message()
 async def fallback(message: Message, state: FSMContext):
@@ -803,14 +795,14 @@ async def fallback(message: Message, state: FSMContext):
     if current is None:
         is_sub = await check_subscription(message.from_user.id)
         if not is_sub:
-            await message.answer("⚠️ اشترك في القناة!", reply_markup=sub_kb())
+            await message.answer("â ï¸ Ø§Ø´ØªØ±Ù ÙÙ Ø§ÙÙÙØ§Ø©!", reply_markup=sub_kb())
         else:
-            await message.answer(f"اكتب /start عشان تبدأ {ANKH}")
+            await message.answer(f"Ø§ÙØªØ¨ /start Ø¹Ø´Ø§Ù ØªØ¨Ø¯Ø£ {ANKH}")
 
 
-# ══════════════════════════════════════
-#              التشغيل
-# ══════════════════════════════════════
+# ââââââââââââââââââââââââââââââââââââââ
+#              Ø§ÙØªØ´ØºÙÙ
+# ââââââââââââââââââââââââââââââââââââââ
 
 async def on_startup(b: Bot):
     await init_db()
