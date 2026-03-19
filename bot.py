@@ -1,7 +1,7 @@
 """
-Ø¨ÙØª Ø§ÙØªØµØ§Ø¯ Ø£Ø­ÙØ³ v2 - Ø­Ø§Ø³Ø¨Ø© Ø§ÙØªØ¶Ø®Ù ÙØ§ÙØ§Ø³ØªØ«ÙØ§Ø±
+ÃÂ¨ÃÂÃÂª ÃÂ§ÃÂÃÂªÃÂµÃÂ§ÃÂ¯ ÃÂ£ÃÂ­ÃÂÃÂ³ v2 - ÃÂ­ÃÂ§ÃÂ³ÃÂ¨ÃÂ© ÃÂ§ÃÂÃÂªÃÂ¶ÃÂ®ÃÂ ÃÂÃÂ§ÃÂÃÂ§ÃÂ³ÃÂªÃÂ«ÃÂÃÂ§ÃÂ±
 =================================================
-Ø¨ÙØ§ÙØ§Øª ÙØ­Ø¸ÙØ© | ÙÙ Ø¯ÙÙ Ø§ÙØ¹Ø§ÙÙ | Ø£ÙÙØ§Ù ÙØ³ØªÙØ­Ø§Ø© ÙÙ Ø§ÙÙÙØ¬Ù
+ÃÂ¨ÃÂÃÂ§ÃÂÃÂ§ÃÂª ÃÂÃÂ­ÃÂ¸ÃÂÃÂ© | ÃÂÃÂ ÃÂ¯ÃÂÃÂ ÃÂ§ÃÂÃÂ¹ÃÂ§ÃÂÃÂ | ÃÂ£ÃÂÃÂÃÂ§ÃÂ ÃÂÃÂ³ÃÂªÃÂÃÂ­ÃÂ§ÃÂ© ÃÂÃÂ ÃÂ§ÃÂÃÂÃÂÃÂ¬ÃÂ
 """
 
 import asyncio
@@ -41,16 +41,16 @@ bot = Bot(token=BOT_TOKEN)
 router = Router()
 
 
-# ââââââââââââââââââââââââââââââââââââââ
-#              Ø­Ø§ÙØ§Øª FSM
-# ââââââââââââââââââââââââââââââââââââââ
+# Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+#              ÃÂ­ÃÂ§ÃÂÃÂ§ÃÂª FSM
+# Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 
 class InvestForm(StatesGroup):
     waiting_country = State()
     waiting_amount = State()
     waiting_duration = State()
     waiting_tool = State()
-    waiting_bank_rate = State()  # Ø§ÙÙØ³ØªØ®Ø¯Ù ÙØ¯Ø®Ù ÙØ³Ø¨Ø© Ø§ÙØ´ÙØ§Ø¯Ø©
+    waiting_bank_rate = State()  # ÃÂ§ÃÂÃÂÃÂ³ÃÂªÃÂ®ÃÂ¯ÃÂ ÃÂÃÂ¯ÃÂ®ÃÂ ÃÂÃÂ³ÃÂ¨ÃÂ© ÃÂ§ÃÂÃÂ´ÃÂÃÂ§ÃÂ¯ÃÂ©
 
 
 class AdminStates(StatesGroup):
@@ -60,17 +60,17 @@ class AdminStates(StatesGroup):
     waiting_link_url = State()
 
 
-# ââââââââââââââââââââââââââââââââââââââ
-#              Ø£Ø¯ÙØ§Øª ÙØ³Ø§Ø¹Ø¯Ø©
-# ââââââââââââââââââââââââââââââââââââââ
+# Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+#              ÃÂ£ÃÂ¯ÃÂÃÂ§ÃÂª ÃÂÃÂ³ÃÂ§ÃÂ¹ÃÂ¯ÃÂ©
+# Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 
-# ââ Ø£ÙÙØ§Ù ÙØ³ØªÙØ­Ø§Ø© ÙÙ Ø§ÙÙÙØ¬Ù (ÙÙØ§Ø³ØªØ®Ø¯Ø§Ù ÙÙ Ø§ÙØ±Ø³Ø§Ø¦Ù) ââ
-# Ø°ÙØ¨Ù âï¸ | Ø£Ø³ÙØ¯ ð¤ | Ø£Ø²Ø±Ù Ø³ÙØ§Ù ð· | Ø±ÙØ§Ø¯Ù âï¸
-# ÙØ³ØªØ®Ø¯Ù Ø¥ÙÙÙØ¬Ù Ø°ÙØ¨ÙØ© + Ø®Ø·ÙØ· ÙØ±Ø¹ÙÙÙØ©
+# Ã¢ÂÂÃ¢ÂÂ ÃÂ£ÃÂÃÂÃÂ§ÃÂ ÃÂÃÂ³ÃÂªÃÂÃÂ­ÃÂ§ÃÂ© ÃÂÃÂ ÃÂ§ÃÂÃÂÃÂÃÂ¬ÃÂ (ÃÂÃÂÃÂ§ÃÂ³ÃÂªÃÂ®ÃÂ¯ÃÂ§ÃÂ ÃÂÃÂ ÃÂ§ÃÂÃÂ±ÃÂ³ÃÂ§ÃÂ¦ÃÂ) Ã¢ÂÂÃ¢ÂÂ
+# ÃÂ°ÃÂÃÂ¨ÃÂ Ã¢ÂÂÃ¯Â¸Â | ÃÂ£ÃÂ³ÃÂÃÂ¯ Ã°ÂÂÂ¤ | ÃÂ£ÃÂ²ÃÂ±ÃÂ ÃÂ³ÃÂÃÂ§ÃÂ Ã°ÂÂÂ· | ÃÂ±ÃÂÃÂ§ÃÂ¯ÃÂ Ã¢ÂÂÃ¯Â¸Â
+# ÃÂÃÂ³ÃÂªÃÂ®ÃÂ¯ÃÂ ÃÂ¥ÃÂÃÂÃÂÃÂ¬ÃÂ ÃÂ°ÃÂÃÂ¨ÃÂÃÂ© + ÃÂ®ÃÂ·ÃÂÃÂ· ÃÂÃÂ±ÃÂ¹ÃÂÃÂÃÂÃÂ©
 
-PHARAOH_LINE = "âââââââââââââââââââ"
-GOLD_DIAMOND = "â"
-ANKH = "â¥"
+PHARAOH_LINE = "Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ"
+GOLD_DIAMOND = "Ã¢ÂÂ"
+ANKH = "Ã¢ÂÂ¥"
 
 def fmt(n: float) -> str:
     if n == int(n):
@@ -85,13 +85,13 @@ async def check_subscription(user_id: int) -> bool:
 
 def sub_kb() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="ð¢ Ø§Ø´ØªØ±Ù ÙÙ Ø§ÙÙÙØ§Ø©", url=CHANNEL_LINK)],
-        [InlineKeyboardButton(text=f"{ANKH} ØªØ­ÙÙØª ÙÙ Ø§ÙØ§Ø´ØªØ±Ø§Ù", callback_data="check_sub")]
+        [InlineKeyboardButton(text="Ã°ÂÂÂ¢ ÃÂ§ÃÂ´ÃÂªÃÂ±ÃÂ ÃÂÃÂ ÃÂ§ÃÂÃÂÃÂÃÂ§ÃÂ©", url=CHANNEL_LINK)],
+        [InlineKeyboardButton(text=f"{ANKH} ÃÂªÃÂ­ÃÂÃÂÃÂª ÃÂÃÂ ÃÂ§ÃÂÃÂ§ÃÂ´ÃÂªÃÂ±ÃÂ§ÃÂ", callback_data="check_sub")]
     ])
 
 
 async def send_logo(chat_id: int, caption: str, reply_markup=None):
-    """Ø¥Ø±Ø³Ø§Ù Ø§ÙÙÙØ¬Ù ÙØ¹ Ø±Ø³Ø§ÙØ©"""
+    """ÃÂ¥ÃÂ±ÃÂ³ÃÂ§ÃÂ ÃÂ§ÃÂÃÂÃÂÃÂ¬ÃÂ ÃÂÃÂ¹ ÃÂ±ÃÂ³ÃÂ§ÃÂÃÂ©"""
     if os.path.exists(LOGO_PATH):
         photo = FSInputFile(LOGO_PATH)
         await bot.send_photo(
@@ -114,8 +114,8 @@ async def result_buttons() -> InlineKeyboardMarkup:
     link_text = await get_setting("result_link_text")
     link_url = await get_setting("result_link_url")
     return InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text=f"ð {link_text}", url=link_url)],
-        [InlineKeyboardButton(text=f"{ANKH} Ø­Ø³Ø§Ø¨ Ø¬Ø¯ÙØ¯", callback_data="new_calc")]
+        [InlineKeyboardButton(text=f"Ã°ÂÂÂ {link_text}", url=link_url)],
+        [InlineKeyboardButton(text=f"{ANKH} ÃÂ­ÃÂ³ÃÂ§ÃÂ¨ ÃÂ¬ÃÂ¯ÃÂÃÂ¯", callback_data="new_calc")]
     ])
 
 
@@ -124,7 +124,7 @@ def is_admin(uid: int) -> bool:
 
 
 def country_keyboard(page: int = 0) -> InlineKeyboardMarkup:
-    """Ø£Ø²Ø±Ø§Ø± Ø§Ø®ØªÙØ§Ø± Ø§ÙØ¯ÙÙØ© ÙØ¹ Ø³ÙØ±ÙÙ"""
+    """ÃÂ£ÃÂ²ÃÂ±ÃÂ§ÃÂ± ÃÂ§ÃÂ®ÃÂªÃÂÃÂ§ÃÂ± ÃÂ§ÃÂÃÂ¯ÃÂÃÂÃÂ© ÃÂÃÂ¹ ÃÂ³ÃÂÃÂ±ÃÂÃÂ"""
     countries, has_prev, has_next = get_countries_page(page, per_page=8)
 
     rows = []
@@ -140,49 +140,49 @@ def country_keyboard(page: int = 0) -> InlineKeyboardMarkup:
             ))
         rows.append(row)
 
-    # Ø£Ø²Ø±Ø§Ø± Ø§ÙØªÙÙÙ
+    # ÃÂ£ÃÂ²ÃÂ±ÃÂ§ÃÂ± ÃÂ§ÃÂÃÂªÃÂÃÂÃÂ
     nav = []
     if has_prev:
-        nav.append(InlineKeyboardButton(text="âï¸ Ø§ÙØ³Ø§Ø¨Ù", callback_data=f"cpage_{page-1}"))
-    nav.append(InlineKeyboardButton(text=f"ð {page+1}", callback_data="noop"))
+        nav.append(InlineKeyboardButton(text="Ã¢ÂÂÃ¯Â¸Â ÃÂ§ÃÂÃÂ³ÃÂ§ÃÂ¨ÃÂ", callback_data=f"cpage_{page-1}"))
+    nav.append(InlineKeyboardButton(text=f"Ã°ÂÂÂ {page+1}", callback_data="noop"))
     if has_next:
-        nav.append(InlineKeyboardButton(text="Ø§ÙØªØ§ÙÙ â¶ï¸", callback_data=f"cpage_{page+1}"))
+        nav.append(InlineKeyboardButton(text="ÃÂ§ÃÂÃÂªÃÂ§ÃÂÃÂ Ã¢ÂÂ¶Ã¯Â¸Â", callback_data=f"cpage_{page+1}"))
     rows.append(nav)
 
     return InlineKeyboardMarkup(inline_keyboard=rows)
 
 
 def search_results_keyboard(results: list) -> InlineKeyboardMarkup:
-    """Ø£Ø²Ø±Ø§Ø± ÙØªØ§Ø¦Ø¬ Ø§ÙØ¨Ø­Ø«"""
+    """ÃÂ£ÃÂ²ÃÂ±ÃÂ§ÃÂ± ÃÂÃÂªÃÂ§ÃÂ¦ÃÂ¬ ÃÂ§ÃÂÃÂ¨ÃÂ­ÃÂ«"""
     rows = []
     for c in results:
         rows.append([InlineKeyboardButton(
             text=f"{c['flag']} {c['name_ar']} ({c['currency']})",
             callback_data=f"country_{c['code']}"
         )])
-    rows.append([InlineKeyboardButton(text="ð Ø¹Ø±Ø¶ ÙÙ Ø§ÙØ¯ÙÙ", callback_data="cpage_0")])
+    rows.append([InlineKeyboardButton(text="Ã°ÂÂÂ ÃÂ¹ÃÂ±ÃÂ¶ ÃÂÃÂ ÃÂ§ÃÂÃÂ¯ÃÂÃÂ", callback_data="cpage_0")])
     return InlineKeyboardMarkup(inline_keyboard=rows)
 
 
 def duration_kb() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(inline_keyboard=[[
-        InlineKeyboardButton(text="6ï¸â£ Ø´ÙÙØ±", callback_data="dur_6m"),
-        InlineKeyboardButton(text="1ï¸â£ Ø³ÙØ©", callback_data="dur_1y"),
-        InlineKeyboardButton(text="3ï¸â£ Ø³ÙÙØ§Øª", callback_data="dur_3y"),
+        InlineKeyboardButton(text="6Ã¯Â¸ÂÃ¢ÂÂ£ ÃÂ´ÃÂÃÂÃÂ±", callback_data="dur_6m"),
+        InlineKeyboardButton(text="1Ã¯Â¸ÂÃ¢ÂÂ£ ÃÂ³ÃÂÃÂ©", callback_data="dur_1y"),
+        InlineKeyboardButton(text="3Ã¯Â¸ÂÃ¢ÂÂ£ ÃÂ³ÃÂÃÂÃÂ§ÃÂª", callback_data="dur_3y"),
     ]])
 
 
 def tool_kb() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="ð¦ Ø´ÙØ§Ø¯Ø§Øª Ø¨ÙÙÙØ©", callback_data="tool_bank")],
-        [InlineKeyboardButton(text=f"ð¥ Ø°ÙØ¨ (Ø³Ø¹Ø± ÙØ­Ø¸Ù)", callback_data="tool_gold")],
-        [InlineKeyboardButton(text="ðµ Ø¹ÙÙØ© ØµØ¹Ø¨Ø© (Ø¯ÙÙØ§Ø±)", callback_data="tool_usd")],
+        [InlineKeyboardButton(text="Ã°ÂÂÂ¦ ÃÂ´ÃÂÃÂ§ÃÂ¯ÃÂ§ÃÂª ÃÂ¨ÃÂÃÂÃÂÃÂ©", callback_data="tool_bank")],
+        [InlineKeyboardButton(text=f"Ã°ÂÂ¥Â ÃÂ°ÃÂÃÂ¨ (ÃÂ³ÃÂ¹ÃÂ± ÃÂÃÂ­ÃÂ¸ÃÂ)", callback_data="tool_gold")],
+        [InlineKeyboardButton(text="Ã°ÂÂÂµ ÃÂ¹ÃÂÃÂÃÂ© ÃÂµÃÂ¹ÃÂ¨ÃÂ© (ÃÂ¯ÃÂÃÂÃÂ§ÃÂ±)", callback_data="tool_usd")],
     ])
 
 
-# ââââââââââââââââââââââââââââââââââââââ
-#           Ø£ÙØ§ÙØ± Ø§ÙÙØ³ØªØ®Ø¯Ù
-# ââââââââââââââââââââââââââââââââââââââ
+# Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+#           ÃÂ£ÃÂÃÂ§ÃÂÃÂ± ÃÂ§ÃÂÃÂÃÂ³ÃÂªÃÂ®ÃÂ¯ÃÂ
+# Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 
 @router.message(CommandStart())
 async def cmd_start(message: Message, state: FSMContext):
@@ -198,13 +198,13 @@ async def cmd_start(message: Message, state: FSMContext):
     if not is_sub:
         await send_logo(
             message.chat.id,
-            f"<b>{GOLD_DIAMOND} Ø­Ø§Ø³Ø¨ Ø¹ÙÙ ÙÙÙØ³Ù {GOLD_DIAMOND}</b>\n"
+            f"<b>{GOLD_DIAMOND} ÃÂ­ÃÂ§ÃÂ³ÃÂ¨ ÃÂ¹ÃÂÃÂ ÃÂÃÂÃÂÃÂ³ÃÂ {GOLD_DIAMOND}</b>\n"
             f"{PHARAOH_LINE}\n\n"
-            "Ø§ÙØªØ¶Ø®Ù ÙØ´ Ø¨ÙØ³ØªÙÙ Ø­Ø¯\n"
-            "Ø§Ø¹Ø±Ù Ø¯ÙÙÙØªÙ: Ø§Ø³ØªØ«ÙØ§Ø±Ù Ø¨ÙÙØ³Ø¨\n"
-            "ÙÙØ§ Ø¨ÙØ®Ø³Ø± ÙÙ ØºÙØ± ÙØ§ ØªØ­Ø³Ø â¡\n\n"
-            "â ï¸ ÙØ§Ø²Ù ØªÙÙÙ ÙØ´ØªØ±Ù ÙÙ Ø§ÙÙÙØ§Ø© Ø§ÙØ£ÙÙ\n\n"
-            "ð¢ Ø§Ø´ØªØ±Ù ÙØ¨Ø¹Ø¯ÙÙ Ø§Ø¶ØºØ· ØªØ­ÙÙ ð",
+            "ÃÂ§ÃÂÃÂªÃÂ¶ÃÂ®ÃÂ ÃÂÃÂ´ ÃÂ¨ÃÂÃÂ³ÃÂªÃÂÃÂ ÃÂ­ÃÂ¯\n"
+            "ÃÂ§ÃÂ¹ÃÂ±ÃÂ ÃÂ¯ÃÂÃÂÃÂÃÂªÃÂ: ÃÂ§ÃÂ³ÃÂªÃÂ«ÃÂÃÂ§ÃÂ±ÃÂ ÃÂ¨ÃÂÃÂÃÂ³ÃÂ¨\n"
+            "ÃÂÃÂÃÂ§ ÃÂ¨ÃÂÃÂ®ÃÂ³ÃÂ± ÃÂÃÂ ÃÂºÃÂÃÂ± ÃÂÃÂ§ ÃÂªÃÂ­ÃÂ³ÃÂ Ã¢ÂÂ¡\n\n"
+            "Ã¢ÂÂ Ã¯Â¸Â ÃÂÃÂ§ÃÂ²ÃÂ ÃÂªÃÂÃÂÃÂ ÃÂÃÂ´ÃÂªÃÂ±ÃÂ ÃÂÃÂ ÃÂ§ÃÂÃÂÃÂÃÂ§ÃÂ© ÃÂ§ÃÂÃÂ£ÃÂÃÂ\n\n"
+            "Ã°ÂÂÂ¢ ÃÂ§ÃÂ´ÃÂªÃÂ±ÃÂ ÃÂÃÂ¨ÃÂ¹ÃÂ¯ÃÂÃÂ ÃÂ§ÃÂ¶ÃÂºÃÂ· ÃÂªÃÂ­ÃÂÃÂ Ã°ÂÂÂ",
             reply_markup=sub_kb()
         )
         return
@@ -213,15 +213,15 @@ async def cmd_start(message: Message, state: FSMContext):
 
 
 async def ask_country(chat_id: int, state: FSMContext):
-    """Ø³Ø¤Ø§Ù Ø§ÙÙØ³ØªØ®Ø¯Ù Ø¹Ù Ø¨ÙØ¯Ù"""
+    """ÃÂ³ÃÂ¤ÃÂ§ÃÂ ÃÂ§ÃÂÃÂÃÂ³ÃÂªÃÂ®ÃÂ¯ÃÂ ÃÂ¹ÃÂ ÃÂ¨ÃÂÃÂ¯ÃÂ"""
     await state.set_state(InvestForm.waiting_country)
     await send_logo(
         chat_id,
-        f"<b>{GOLD_DIAMOND} Ø­Ø§Ø³Ø¨Ø© Ø§ÙØªØ¶Ø®Ù ÙØ§ÙØ§Ø³ØªØ«ÙØ§Ø± {GOLD_DIAMOND}</b>\n"
+        f"<b>{GOLD_DIAMOND} ÃÂ­ÃÂ§ÃÂ³ÃÂ¨ÃÂ© ÃÂ§ÃÂÃÂªÃÂ¶ÃÂ®ÃÂ ÃÂÃÂ§ÃÂÃÂ§ÃÂ³ÃÂªÃÂ«ÃÂÃÂ§ÃÂ± {GOLD_DIAMOND}</b>\n"
         f"{PHARAOH_LINE}\n\n"
-        "ð <b>Ø§Ø®ØªØ§Ø± Ø¨ÙØ¯Ù</b> Ø¹Ø´Ø§Ù ÙØ¬ÙØ¨ÙÙ Ø§ÙØ£Ø³Ø¹Ø§Ø± Ø§ÙÙØ­Ø¸ÙØ©\n\n"
-        "âï¸ <b>Ø§ÙØªØ¨ Ø§Ø³Ù Ø¨ÙØ¯Ù</b> (Ø¹Ø±Ø¨Ù Ø£Ù Ø¥ÙØ¬ÙÙØ²Ù)\n"
-        "Ø£Ù Ø§Ø®ØªØ§Ø± ÙÙ Ø§ÙÙØ§Ø¦ÙØ© ð",
+        "Ã°ÂÂÂ <b>ÃÂ§ÃÂ®ÃÂªÃÂ§ÃÂ± ÃÂ¨ÃÂÃÂ¯ÃÂ</b> ÃÂ¹ÃÂ´ÃÂ§ÃÂ ÃÂÃÂ¬ÃÂÃÂ¨ÃÂÃÂ ÃÂ§ÃÂÃÂ£ÃÂ³ÃÂ¹ÃÂ§ÃÂ± ÃÂ§ÃÂÃÂÃÂ­ÃÂ¸ÃÂÃÂ©\n\n"
+        "Ã¢ÂÂÃ¯Â¸Â <b>ÃÂ§ÃÂÃÂªÃÂ¨ ÃÂ§ÃÂ³ÃÂ ÃÂ¨ÃÂÃÂ¯ÃÂ</b> (ÃÂ¹ÃÂ±ÃÂ¨ÃÂ ÃÂ£ÃÂ ÃÂ¥ÃÂÃÂ¬ÃÂÃÂÃÂ²ÃÂ)\n"
+        "ÃÂ£ÃÂ ÃÂ§ÃÂ®ÃÂªÃÂ§ÃÂ± ÃÂÃÂ ÃÂ§ÃÂÃÂÃÂ§ÃÂ¦ÃÂÃÂ© Ã°ÂÂÂ",
         reply_markup=country_keyboard(0)
     )
 
@@ -233,19 +233,19 @@ async def check_sub_cb(callback: CallbackQuery, state: FSMContext):
         await callback.message.delete()
         await ask_country(callback.message.chat.id, state)
     else:
-        await callback.answer("â ÙØ³Ù ÙØ´ØªØ±Ù! Ø§Ø´ØªØ±Ù Ø§ÙØ£ÙÙ", show_alert=True)
+        await callback.answer("Ã¢ÂÂ ÃÂÃÂ³ÃÂ ÃÂÃÂ´ÃÂªÃÂ±ÃÂ! ÃÂ§ÃÂ´ÃÂªÃÂ±ÃÂ ÃÂ§ÃÂÃÂ£ÃÂÃÂ", show_alert=True)
 
 
 @router.callback_query(F.data == "new_calc")
 async def new_calc_cb(callback: CallbackQuery, state: FSMContext):
     is_sub = await check_subscription(callback.from_user.id)
     if not is_sub:
-        await callback.message.answer("â ï¸ Ø§Ø´ØªØ±Ù ÙÙ Ø§ÙÙÙØ§Ø© Ø§ÙØ£ÙÙ!", reply_markup=sub_kb())
+        await callback.message.answer("Ã¢ÂÂ Ã¯Â¸Â ÃÂ§ÃÂ´ÃÂªÃÂ±ÃÂ ÃÂÃÂ ÃÂ§ÃÂÃÂÃÂÃÂ§ÃÂ© ÃÂ§ÃÂÃÂ£ÃÂÃÂ!", reply_markup=sub_kb())
         return
     await ask_country(callback.message.chat.id, state)
 
 
-# ââ ØªØµÙØ­ Ø§ÙØ¯ÙÙ ââ
+# Ã¢ÂÂÃ¢ÂÂ ÃÂªÃÂµÃÂÃÂ­ ÃÂ§ÃÂÃÂ¯ÃÂÃÂ Ã¢ÂÂÃ¢ÂÂ
 
 @router.callback_query(F.data == "noop")
 async def noop_cb(callback: CallbackQuery):
@@ -261,44 +261,44 @@ async def country_page(callback: CallbackQuery, state: FSMContext):
         pass
 
 
-# ââ Ø§ÙØ¨Ø­Ø« Ø¹Ù Ø§ÙØ¯ÙÙØ© Ø¨Ø§ÙÙØªØ§Ø¨Ø© ââ
+# Ã¢ÂÂÃ¢ÂÂ ÃÂ§ÃÂÃÂ¨ÃÂ­ÃÂ« ÃÂ¹ÃÂ ÃÂ§ÃÂÃÂ¯ÃÂÃÂÃÂ© ÃÂ¨ÃÂ§ÃÂÃÂÃÂªÃÂ§ÃÂ¨ÃÂ© Ã¢ÂÂÃ¢ÂÂ
 @router.message(InvestForm.waiting_country)
 async def search_country_text(message: Message, state: FSMContext):
-    """Ø§ÙÙØ³ØªØ®Ø¯Ù ÙØªØ¨ Ø§Ø³Ù Ø¨ÙØ¯Ù Ø¨Ø¯Ù ÙØ§ ÙØ¶ØºØ· Ø²Ø±"""
+    """ÃÂ§ÃÂÃÂÃÂ³ÃÂªÃÂ®ÃÂ¯ÃÂ ÃÂÃÂªÃÂ¨ ÃÂ§ÃÂ³ÃÂ ÃÂ¨ÃÂÃÂ¯ÃÂ ÃÂ¨ÃÂ¯ÃÂ ÃÂÃÂ§ ÃÂÃÂ¶ÃÂºÃÂ· ÃÂ²ÃÂ±"""
     query = message.text.strip()
     results = search_countries(query, limit=6)
 
     if not results:
         await message.answer(
-            f"â ÙÙÙØ´ Ø¯ÙÙØ© Ø§Ø³ÙÙØ§ <b>{query}</b>\n\n"
-            "Ø¬Ø±Ø¨ ØªÙØªØ¨ Ø§Ø³Ù ØªØ§ÙÙ Ø£Ù Ø§Ø®ØªØ§Ø± ÙÙ Ø§ÙÙØ§Ø¦ÙØ© ð",
+            f"Ã¢ÂÂ ÃÂÃÂÃÂÃÂ´ ÃÂ¯ÃÂÃÂÃÂ© ÃÂ§ÃÂ³ÃÂÃÂÃÂ§ <b>{query}</b>\n\n"
+            "ÃÂ¬ÃÂ±ÃÂ¨ ÃÂªÃÂÃÂªÃÂ¨ ÃÂ§ÃÂ³ÃÂ ÃÂªÃÂ§ÃÂÃÂ ÃÂ£ÃÂ ÃÂ§ÃÂ®ÃÂªÃÂ§ÃÂ± ÃÂÃÂ ÃÂ§ÃÂÃÂÃÂ§ÃÂ¦ÃÂÃÂ© Ã°ÂÂÂ",
             parse_mode=ParseMode.HTML,
             reply_markup=country_keyboard(0)
         )
         return
 
     if len(results) == 1:
-        # ÙØªÙØ¬Ø© ÙØ§Ø­Ø¯Ø© â Ø§Ø®ØªØ§Ø±ÙØ§ ÙØ¨Ø§Ø´Ø±Ø©
+        # ÃÂÃÂªÃÂÃÂ¬ÃÂ© ÃÂÃÂ§ÃÂ­ÃÂ¯ÃÂ© Ã¢ÂÂ ÃÂ§ÃÂ®ÃÂªÃÂ§ÃÂ±ÃÂÃÂ§ ÃÂÃÂ¨ÃÂ§ÃÂ´ÃÂ±ÃÂ©
         country = results[0]
         await _select_country(message.chat.id, message.from_user, country, state)
         return
 
-    # Ø£ÙØ«Ø± ÙÙ ÙØªÙØ¬Ø© â Ø¹Ø±Ø¶ÙØ§ ÙØ£Ø²Ø±Ø§Ø±
+    # ÃÂ£ÃÂÃÂ«ÃÂ± ÃÂÃÂ ÃÂÃÂªÃÂÃÂ¬ÃÂ© Ã¢ÂÂ ÃÂ¹ÃÂ±ÃÂ¶ÃÂÃÂ§ ÃÂÃÂ£ÃÂ²ÃÂ±ÃÂ§ÃÂ±
     await message.answer(
-        f"ð ÙØªØ§Ø¦Ø¬ Ø§ÙØ¨Ø­Ø« Ø¹Ù <b>{query}</b>:",
+        f"Ã°ÂÂÂ ÃÂÃÂªÃÂ§ÃÂ¦ÃÂ¬ ÃÂ§ÃÂÃÂ¨ÃÂ­ÃÂ« ÃÂ¹ÃÂ <b>{query}</b>:",
         parse_mode=ParseMode.HTML,
         reply_markup=search_results_keyboard(results)
     )
 
 
-# ââ Ø§Ø®ØªÙØ§Ø± Ø§ÙØ¯ÙÙØ© ââ
+# Ã¢ÂÂÃ¢ÂÂ ÃÂ§ÃÂ®ÃÂªÃÂÃÂ§ÃÂ± ÃÂ§ÃÂÃÂ¯ÃÂÃÂÃÂ© Ã¢ÂÂÃ¢ÂÂ
 
 @router.callback_query(F.data.startswith("country_"), InvestForm.waiting_country)
 async def select_country_cb(callback: CallbackQuery, state: FSMContext):
     code = callback.data.replace("country_", "")
     country = get_country_by_code(code)
     if not country:
-        await callback.answer("â Ø®Ø·Ø£", show_alert=True)
+        await callback.answer("Ã¢ÂÂ ÃÂ®ÃÂ·ÃÂ£", show_alert=True)
         return
     try:
         await callback.message.delete()
@@ -308,7 +308,7 @@ async def select_country_cb(callback: CallbackQuery, state: FSMContext):
 
 
 async def _select_country(chat_id: int, user, country: dict, state: FSMContext):
-    """ÙØ¹Ø§ÙØ¬Ø© Ø§Ø®ØªÙØ§Ø± Ø§ÙØ¯ÙÙØ© (ÙØ´ØªØ±ÙØ© Ø¨ÙÙ Ø§ÙØ¶ØºØ· ÙØ§ÙÙØªØ§Ø¨Ø©)"""
+    """ÃÂÃÂ¹ÃÂ§ÃÂÃÂ¬ÃÂ© ÃÂ§ÃÂ®ÃÂªÃÂÃÂ§ÃÂ± ÃÂ§ÃÂÃÂ¯ÃÂÃÂÃÂ© (ÃÂÃÂ´ÃÂªÃÂ±ÃÂÃÂ© ÃÂ¨ÃÂÃÂ ÃÂ§ÃÂÃÂ¶ÃÂºÃÂ· ÃÂÃÂ§ÃÂÃÂÃÂªÃÂ§ÃÂ¨ÃÂ©)"""
     await save_user(
         user_id=user.id,
         username=user.username,
@@ -320,34 +320,34 @@ async def _select_country(chat_id: int, user, country: dict, state: FSMContext):
 
     loading = await bot.send_message(
         chat_id,
-        f"â³ Ø¬Ø§Ø±Ù Ø¬ÙØ¨ Ø§ÙØ¨ÙØ§ÙØ§Øª Ø§ÙÙØ­Ø¸ÙØ© ÙÙ {country['flag']} {country['name_ar']}..."
+        f"Ã¢ÂÂ³ ÃÂ¬ÃÂ§ÃÂ±ÃÂ ÃÂ¬ÃÂÃÂ¨ ÃÂ§ÃÂÃÂ¨ÃÂÃÂ§ÃÂÃÂ§ÃÂª ÃÂ§ÃÂÃÂÃÂ­ÃÂ¸ÃÂÃÂ© ÃÂÃÂ {country['flag']} {country['name_ar']}..."
     )
 
     live_data = await fetch_all_data(country["code"], country["currency"])
     await state.update_data(country=country, live_data=live_data)
 
-    summary = f"<b>{GOLD_DIAMOND} {country['flag']} Ø£Ø³Ø¹Ø§Ø± {country['name_ar']} Ø§ÙÙØ­Ø¸ÙØ© {GOLD_DIAMOND}</b>\n"
+    summary = f"<b>{GOLD_DIAMOND} {country['flag']} ÃÂ£ÃÂ³ÃÂ¹ÃÂ§ÃÂ± {country['name_ar']} ÃÂ§ÃÂÃÂÃÂ­ÃÂ¸ÃÂÃÂ© {GOLD_DIAMOND}</b>\n"
     summary += f"{PHARAOH_LINE}\n\n"
 
     if live_data["gold"]:
         g = live_data["gold"]
-        summary += f"ð¥ <b>Ø§ÙØ°ÙØ¨:</b> {fmt(g['current_gram_local'])} {country['currency_name']}/Ø¬Ø±Ø§Ù\n"
-        summary += f"   <i>(${fmt(g['current_gram_usd'])} Ø¹Ø§ÙÙÙØ§Ù)</i>\n\n"
+        summary += f"Ã°ÂÂ¥Â <b>ÃÂ§ÃÂÃÂ°ÃÂÃÂ¨:</b> {fmt(g['current_gram_local'])} {country['currency_name']}/ÃÂ¬ÃÂ±ÃÂ§ÃÂ\n"
+        summary += f"   <i>(${fmt(g['current_gram_usd'])} ÃÂ¹ÃÂ§ÃÂÃÂÃÂÃÂ§ÃÂ)</i>\n\n"
 
     if live_data["hard_currency"]:
         h = live_data["hard_currency"]
-        summary += f"ðµ <b>Ø§ÙØ¯ÙÙØ§Ø±:</b> {fmt(h['current_rate'])} {country['currency_name']}\n\n"
+        summary += f"Ã°ÂÂÂµ <b>ÃÂ§ÃÂÃÂ¯ÃÂÃÂÃÂ§ÃÂ±:</b> {fmt(h['current_rate'])} {country['currency_name']}\n\n"
 
     if live_data["inflation"]:
         inf_data = live_data["inflation"]
-        summary += f"ð <b>Ø§ÙØªØ¶Ø®Ù:</b> {inf_data['rate']}% <i>(Ø¢Ø®Ø± Ø¨ÙØ§ÙØ§Øª: {inf_data['year']} - {inf_data['source']})</i>\n\n"
+        summary += f"Ã°ÂÂÂ <b>ÃÂ§ÃÂÃÂªÃÂ¶ÃÂ®ÃÂ:</b> {inf_data['rate']}% <i>(ÃÂ¢ÃÂ®ÃÂ± ÃÂ¨ÃÂÃÂ§ÃÂÃÂ§ÃÂª: {inf_data['year']} - {inf_data['source']})</i>\n\n"
     else:
         fb = await get_setting("fallback_inflation")
-        summary += f"ð <b>Ø§ÙØªØ¶Ø®Ù:</b> {fb}% <i>(ØªÙØ¯ÙØ±Ù)</i>\n\n"
+        summary += f"Ã°ÂÂÂ <b>ÃÂ§ÃÂÃÂªÃÂ¶ÃÂ®ÃÂ:</b> {fb}% <i>(ÃÂªÃÂÃÂ¯ÃÂÃÂ±ÃÂ)</i>\n\n"
 
     summary += f"{PHARAOH_LINE}\n"
-    summary += "ð° <b>Ø§ÙØªØ¨ Ø§ÙÙØ¨ÙØº Ø§ÙÙÙ Ø¹Ø§ÙØ² ØªØ³ØªØ«ÙØ±Ù</b>\n"
-    summary += f"<i>(Ø£Ø±ÙØ§Ù ÙÙØ· Ø¨Ù {country['currency_name']})</i>"
+    summary += "Ã°ÂÂÂ° <b>ÃÂ§ÃÂÃÂªÃÂ¨ ÃÂ§ÃÂÃÂÃÂ¨ÃÂÃÂº ÃÂ§ÃÂÃÂÃÂ ÃÂ¹ÃÂ§ÃÂÃÂ² ÃÂªÃÂ³ÃÂªÃÂ«ÃÂÃÂ±ÃÂ</b>\n"
+    summary += f"<i>(ÃÂ£ÃÂ±ÃÂÃÂ§ÃÂ ÃÂÃÂÃÂ· ÃÂ¨ÃÂ {country['currency_name']})</i>"
 
     await state.set_state(InvestForm.waiting_amount)
     try:
@@ -357,21 +357,21 @@ async def _select_country(chat_id: int, user, country: dict, state: FSMContext):
     await bot.send_message(chat_id, summary, parse_mode=ParseMode.HTML)
 
 
-# ââ Ø¥Ø¯Ø®Ø§Ù Ø§ÙÙØ¨ÙØº ââ
+# Ã¢ÂÂÃ¢ÂÂ ÃÂ¥ÃÂ¯ÃÂ®ÃÂ§ÃÂ ÃÂ§ÃÂÃÂÃÂ¨ÃÂÃÂº Ã¢ÂÂÃ¢ÂÂ
 
 @router.message(InvestForm.waiting_amount)
 async def receive_amount(message: Message, state: FSMContext):
-    text = message.text.strip().replace(",", "").replace("Ù¬", "").replace("Ø", "")
+    text = message.text.strip().replace(",", "").replace("ÃÂ¬", "").replace("ÃÂ", "")
     try:
         amount = float(text)
         if amount <= 0:
             raise ValueError
         if amount > 999_999_999_999:
-            await message.answer("â ï¸ Ø§ÙÙØ¨ÙØº ÙØ¨ÙØ± Ø£ÙÙ!")
+            await message.answer("Ã¢ÂÂ Ã¯Â¸Â ÃÂ§ÃÂÃÂÃÂ¨ÃÂÃÂº ÃÂÃÂ¨ÃÂÃÂ± ÃÂ£ÃÂÃÂ!")
             return
     except (ValueError, TypeError):
         await message.answer(
-            "â <b>Ø¥Ø¯Ø®Ø§Ù ØºÙØ± ØµØ­ÙØ­</b>\n\nØ§ÙØªØ¨ Ø£Ø±ÙØ§Ù ÙÙØ·\nÙØ«Ø§Ù: <code>100000</code>",
+            "Ã¢ÂÂ <b>ÃÂ¥ÃÂ¯ÃÂ®ÃÂ§ÃÂ ÃÂºÃÂÃÂ± ÃÂµÃÂ­ÃÂÃÂ­</b>\n\nÃÂ§ÃÂÃÂªÃÂ¨ ÃÂ£ÃÂ±ÃÂÃÂ§ÃÂ ÃÂÃÂÃÂ·\nÃÂÃÂ«ÃÂ§ÃÂ: <code>100000</code>",
             parse_mode=ParseMode.HTML
         )
         return
@@ -381,18 +381,18 @@ async def receive_amount(message: Message, state: FSMContext):
     await state.update_data(amount=amount)
     await state.set_state(InvestForm.waiting_duration)
     await message.answer(
-        f"ð° Ø§ÙÙØ¨ÙØº: <b>{fmt(amount)} {country['currency_name']}</b>\n\n"
-        "â³ Ø§Ø®ØªØ§Ø± ÙØ¯Ø© Ø§ÙØ§Ø³ØªØ«ÙØ§Ø± ð",
+        f"Ã°ÂÂÂ° ÃÂ§ÃÂÃÂÃÂ¨ÃÂÃÂº: <b>{fmt(amount)} {country['currency_name']}</b>\n\n"
+        "Ã¢ÂÂ³ ÃÂ§ÃÂ®ÃÂªÃÂ§ÃÂ± ÃÂÃÂ¯ÃÂ© ÃÂ§ÃÂÃÂ§ÃÂ³ÃÂªÃÂ«ÃÂÃÂ§ÃÂ± Ã°ÂÂÂ",
         reply_markup=duration_kb(),
         parse_mode=ParseMode.HTML
     )
 
 
-# ââ Ø§Ø®ØªÙØ§Ø± Ø§ÙÙØ¯Ø© ââ
+# Ã¢ÂÂÃ¢ÂÂ ÃÂ§ÃÂ®ÃÂªÃÂÃÂ§ÃÂ± ÃÂ§ÃÂÃÂÃÂ¯ÃÂ© Ã¢ÂÂÃ¢ÂÂ
 
 @router.callback_query(F.data.startswith("dur_"), InvestForm.waiting_duration)
 async def receive_duration(callback: CallbackQuery, state: FSMContext):
-    dur_map = {"dur_6m": ("6 Ø´ÙÙØ±", 0.5), "dur_1y": ("Ø³ÙØ©", 1.0), "dur_3y": ("3 Ø³ÙÙØ§Øª", 3.0)}
+    dur_map = {"dur_6m": ("6 ÃÂ´ÃÂÃÂÃÂ±", 0.5), "dur_1y": ("ÃÂ³ÃÂÃÂ©", 1.0), "dur_3y": ("3 ÃÂ³ÃÂÃÂÃÂ§ÃÂª", 3.0)}
     dur_text, dur_years = dur_map[callback.data]
 
     await state.update_data(duration_text=dur_text, duration_years=dur_years, dur_key=callback.data)
@@ -401,40 +401,40 @@ async def receive_duration(callback: CallbackQuery, state: FSMContext):
     data = await state.get_data()
     country = data["country"]
     await callback.message.edit_text(
-        f"ð° Ø§ÙÙØ¨ÙØº: <b>{fmt(data['amount'])} {country['currency_name']}</b>\n"
-        f"â³ Ø§ÙÙØ¯Ø©: <b>{dur_text}</b>\n\n"
-        "ð Ø§Ø®ØªØ§Ø± Ø£Ø¯Ø§Ø© Ø§ÙØ§Ø³ØªØ«ÙØ§Ø± ð",
+        f"Ã°ÂÂÂ° ÃÂ§ÃÂÃÂÃÂ¨ÃÂÃÂº: <b>{fmt(data['amount'])} {country['currency_name']}</b>\n"
+        f"Ã¢ÂÂ³ ÃÂ§ÃÂÃÂÃÂ¯ÃÂ©: <b>{dur_text}</b>\n\n"
+        "Ã°ÂÂÂ ÃÂ§ÃÂ®ÃÂªÃÂ§ÃÂ± ÃÂ£ÃÂ¯ÃÂ§ÃÂ© ÃÂ§ÃÂÃÂ§ÃÂ³ÃÂªÃÂ«ÃÂÃÂ§ÃÂ± Ã°ÂÂÂ",
         reply_markup=tool_kb(),
         parse_mode=ParseMode.HTML
     )
 
 
-# ââ Ø§Ø®ØªÙØ§Ø± Ø§ÙØ£Ø¯Ø§Ø© ââ
+# Ã¢ÂÂÃ¢ÂÂ ÃÂ§ÃÂ®ÃÂªÃÂÃÂ§ÃÂ± ÃÂ§ÃÂÃÂ£ÃÂ¯ÃÂ§ÃÂ© Ã¢ÂÂÃ¢ÂÂ
 
 @router.callback_query(F.data.startswith("tool_"), InvestForm.waiting_tool)
 async def receive_tool(callback: CallbackQuery, state: FSMContext):
     tool = callback.data
 
     if tool == "tool_bank":
-        # Ø§ÙØ´ÙØ§Ø¯Ø©: Ø§ÙÙØ³ØªØ®Ø¯Ù ÙØ¯Ø®Ù ÙØ³Ø¨Ø© Ø§ÙÙØ§Ø¦Ø¯Ø© Ø¨ÙÙØ³Ù
+        # ÃÂ§ÃÂÃÂ´ÃÂÃÂ§ÃÂ¯ÃÂ©: ÃÂ§ÃÂÃÂÃÂ³ÃÂªÃÂ®ÃÂ¯ÃÂ ÃÂÃÂ¯ÃÂ®ÃÂ ÃÂÃÂ³ÃÂ¨ÃÂ© ÃÂ§ÃÂÃÂÃÂ§ÃÂ¦ÃÂ¯ÃÂ© ÃÂ¨ÃÂÃÂÃÂ³ÃÂ
         await state.update_data(tool=tool)
         await state.set_state(InvestForm.waiting_bank_rate)
         await callback.message.edit_text(
-            "ð¦ <b>Ø´ÙØ§Ø¯Ø§Øª Ø¨ÙÙÙØ©</b>\n"
+            "Ã°ÂÂÂ¦ <b>ÃÂ´ÃÂÃÂ§ÃÂ¯ÃÂ§ÃÂª ÃÂ¨ÃÂÃÂÃÂÃÂ©</b>\n"
             f"{PHARAOH_LINE}\n\n"
-            "ð <b>Ø§ÙØªØ¨ ÙØ³Ø¨Ø© Ø§ÙÙØ§Ø¦Ø¯Ø© Ø§ÙØ³ÙÙÙØ© ÙØ´ÙØ§Ø¯ØªÙ</b>\n"
-            "<i>(Ø±ÙÙ ÙÙØ· - ÙØ«Ø§Ù: 27)</i>\n\n"
-            "ð¡ Ø§ÙÙØ³Ø¨Ø© Ø¨ØªØ®ØªÙÙ Ø­Ø³Ø¨ Ø§ÙØ¨ÙÙ ÙÙÙØ¹ Ø§ÙØ´ÙØ§Ø¯Ø©",
+            "Ã°ÂÂÂ <b>ÃÂ§ÃÂÃÂªÃÂ¨ ÃÂÃÂ³ÃÂ¨ÃÂ© ÃÂ§ÃÂÃÂÃÂ§ÃÂ¦ÃÂ¯ÃÂ© ÃÂ§ÃÂÃÂ³ÃÂÃÂÃÂÃÂ© ÃÂÃÂ´ÃÂÃÂ§ÃÂ¯ÃÂªÃÂ</b>\n"
+            "<i>(ÃÂ±ÃÂÃÂ ÃÂÃÂÃÂ· - ÃÂÃÂ«ÃÂ§ÃÂ: 27)</i>\n\n"
+            "Ã°ÂÂÂ¡ ÃÂ§ÃÂÃÂÃÂ³ÃÂ¨ÃÂ© ÃÂ¨ÃÂªÃÂ®ÃÂªÃÂÃÂ ÃÂ­ÃÂ³ÃÂ¨ ÃÂ§ÃÂÃÂ¨ÃÂÃÂ ÃÂÃÂÃÂÃÂ¹ ÃÂ§ÃÂÃÂ´ÃÂÃÂ§ÃÂ¯ÃÂ©",
             parse_mode=ParseMode.HTML
         )
         return
 
-    # Ø§ÙØ°ÙØ¨ ÙØ§ÙØ¯ÙÙØ§Ø±: Ø­Ø³Ø§Ø¨ ÙØ¨Ø§Ø´Ø±
+    # ÃÂ§ÃÂÃÂ°ÃÂÃÂ¨ ÃÂÃÂ§ÃÂÃÂ¯ÃÂÃÂÃÂ§ÃÂ±: ÃÂ­ÃÂ³ÃÂ§ÃÂ¨ ÃÂÃÂ¨ÃÂ§ÃÂ´ÃÂ±
     await state.update_data(tool=tool)
     await calculate_result(callback, state)
 
 
-# ââ Ø¥Ø¯Ø®Ø§Ù ÙØ³Ø¨Ø© Ø§ÙØ´ÙØ§Ø¯Ø© Ø§ÙØ¨ÙÙÙØ© ââ
+# Ã¢ÂÂÃ¢ÂÂ ÃÂ¥ÃÂ¯ÃÂ®ÃÂ§ÃÂ ÃÂÃÂ³ÃÂ¨ÃÂ© ÃÂ§ÃÂÃÂ´ÃÂÃÂ§ÃÂ¯ÃÂ© ÃÂ§ÃÂÃÂ¨ÃÂÃÂÃÂÃÂ© Ã¢ÂÂÃ¢ÂÂ
 
 @router.message(InvestForm.waiting_bank_rate)
 async def receive_bank_rate(message: Message, state: FSMContext):
@@ -443,23 +443,23 @@ async def receive_bank_rate(message: Message, state: FSMContext):
         if rate <= 0 or rate > 100:
             raise ValueError
     except (ValueError, TypeError):
-        await message.answer("â Ø§ÙØªØ¨ ÙØ³Ø¨Ø© ØµØ­ÙØ­Ø© (ÙØ«Ø§Ù: 27)")
+        await message.answer("Ã¢ÂÂ ÃÂ§ÃÂÃÂªÃÂ¨ ÃÂÃÂ³ÃÂ¨ÃÂ© ÃÂµÃÂ­ÃÂÃÂ­ÃÂ© (ÃÂÃÂ«ÃÂ§ÃÂ: 27)")
         return
 
     await state.update_data(bank_rate=rate)
 
-    # ÙØ­Ø§ÙÙ callback Ø¹Ø´Ø§Ù ÙØ³ØªØ®Ø¯Ù ÙÙØ³ Ø§ÙØ¯Ø§ÙØ©
+    # ÃÂÃÂ­ÃÂ§ÃÂÃÂ callback ÃÂ¹ÃÂ´ÃÂ§ÃÂ ÃÂÃÂ³ÃÂªÃÂ®ÃÂ¯ÃÂ ÃÂÃÂÃÂ³ ÃÂ§ÃÂÃÂ¯ÃÂ§ÃÂÃÂ©
     data = await state.get_data()
     await calculate_and_send(message.chat.id, data, state)
 
 
-# ââââââââââââââââââââââââââââââââââââââ
-#           Ø­Ø³Ø§Ø¨ Ø§ÙÙØªÙØ¬Ø©
-# ââââââââââââââââââââââââââââââââââââââ
+# Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+#           ÃÂ­ÃÂ³ÃÂ§ÃÂ¨ ÃÂ§ÃÂÃÂÃÂªÃÂÃÂ¬ÃÂ©
+# Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 
 async def calculate_result(callback: CallbackQuery, state: FSMContext):
     data = await state.get_data()
-    await callback.message.edit_text("â³ Ø¬Ø§Ø±Ù Ø§ÙØ­Ø³Ø§Ø¨...")
+    await callback.message.edit_text("Ã¢ÂÂ³ ÃÂ¬ÃÂ§ÃÂ±ÃÂ ÃÂ§ÃÂÃÂ­ÃÂ³ÃÂ§ÃÂ¨...")
     await calculate_and_send(callback.message.chat.id, data, state)
 
 
@@ -473,20 +473,20 @@ async def calculate_and_send(chat_id: int, data: dict, state: FSMContext):
     live = data["live_data"]
     currency_name = country["currency_name"]
 
-    # ââ Ø§ÙØªØ¶Ø®Ù ââ
+    # Ã¢ÂÂÃ¢ÂÂ ÃÂ§ÃÂÃÂªÃÂ¶ÃÂ®ÃÂ Ã¢ÂÂÃ¢ÂÂ
     if live["inflation"]:
         inflation_rate = live["inflation"]["rate"]
         inflation_source = f"({live['inflation']['source']} - {live['inflation']['year']})"
     else:
         inflation_rate = await get_setting("fallback_inflation")
-        inflation_source = "(ØªÙØ¯ÙØ±Ù)"
+        inflation_source = "(ÃÂªÃÂÃÂ¯ÃÂÃÂ±ÃÂ)"
 
     inf = inflation_rate / 100
     purchasing_loss = amount * (1 - (1 / ((1 + inf) ** dur_years)))
 
     result = ""
 
-    # ââââââââ Ø´ÙØ§Ø¯Ø§Øª Ø¨ÙÙÙØ© ââââââââ
+    # Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ ÃÂ´ÃÂÃÂ§ÃÂ¯ÃÂ§ÃÂª ÃÂ¨ÃÂÃÂÃÂÃÂ© Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
     if tool == "tool_bank":
         rate = data["bank_rate"] / 100
         total_return = amount * rate * dur_years
@@ -494,27 +494,27 @@ async def calculate_and_send(chat_id: int, data: dict, state: FSMContext):
         real_profit = total_return - purchasing_loss
 
         result = (
-            f"<b>ð¦ ÙØªÙØ¬Ø© Ø§ÙØ§Ø³ØªØ«ÙØ§Ø± ÙÙ Ø´ÙØ§Ø¯Ø§Øª Ø¨ÙÙÙØ©</b>\n"
+            f"<b>Ã°ÂÂÂ¦ ÃÂÃÂªÃÂÃÂ¬ÃÂ© ÃÂ§ÃÂÃÂ§ÃÂ³ÃÂªÃÂ«ÃÂÃÂ§ÃÂ± ÃÂÃÂ ÃÂ´ÃÂÃÂ§ÃÂ¯ÃÂ§ÃÂª ÃÂ¨ÃÂÃÂÃÂÃÂ©</b>\n"
             f"{PHARAOH_LINE}\n\n"
-            f"{GOLD_DIAMOND} Ø§ÙÙØ¨ÙØº: <b>{fmt(amount)} {currency_name}</b>\n"
-            f"{GOLD_DIAMOND} Ø§ÙÙØ¯Ø©: <b>{dur_text}</b>\n"
-            f"{GOLD_DIAMOND} ÙØ³Ø¨Ø© Ø§ÙÙØ§Ø¦Ø¯Ø©: <b>{data['bank_rate']}%</b> Ø³ÙÙÙØ§Ù\n\n"
-            f"ðµ Ø§ÙØ¹Ø§Ø¦Ø¯ Ø§ÙØ¥Ø¬ÙØ§ÙÙ: <b>{fmt(total_return)} {currency_name}</b>\n"
-            f"ð·ï¸ Ø§ÙÙØ¨ÙØº Ø§ÙÙÙØ§Ø¦Ù: <b>{fmt(final)} {currency_name}</b>\n\n"
-            f"{'â' * 20}\n"
-            f"ð <b>ØªØ£Ø«ÙØ± Ø§ÙØªØ¶Ø®Ù</b> {inflation_source}\n"
-            f"{'â' * 20}\n\n"
-            f"ð» ÙØ³Ø¨Ø© Ø§ÙØªØ¶Ø®Ù: <b>{inflation_rate}%</b> Ø³ÙÙÙØ§Ù\n"
-            f"ð¸ Ø®Ø³Ø§Ø±Ø© Ø§ÙÙÙØ© Ø§ÙØ´Ø±Ø§Ø¦ÙØ©: <b>{fmt(purchasing_loss)} {currency_name}</b>\n"
-            f"â¨ Ø§ÙØ±Ø¨Ø­ Ø§ÙØ­ÙÙÙÙ: <b>{fmt(real_profit)} {currency_name}</b>\n\n"
+            f"{GOLD_DIAMOND} ÃÂ§ÃÂÃÂÃÂ¨ÃÂÃÂº: <b>{fmt(amount)} {currency_name}</b>\n"
+            f"{GOLD_DIAMOND} ÃÂ§ÃÂÃÂÃÂ¯ÃÂ©: <b>{dur_text}</b>\n"
+            f"{GOLD_DIAMOND} ÃÂÃÂ³ÃÂ¨ÃÂ© ÃÂ§ÃÂÃÂÃÂ§ÃÂ¦ÃÂ¯ÃÂ©: <b>{data['bank_rate']}%</b> ÃÂ³ÃÂÃÂÃÂÃÂ§ÃÂ\n\n"
+            f"Ã°ÂÂÂµ ÃÂ§ÃÂÃÂ¹ÃÂ§ÃÂ¦ÃÂ¯ ÃÂ§ÃÂÃÂ¥ÃÂ¬ÃÂÃÂ§ÃÂÃÂ: <b>{fmt(total_return)} {currency_name}</b>\n"
+            f"Ã°ÂÂÂ·Ã¯Â¸Â ÃÂ§ÃÂÃÂÃÂ¨ÃÂÃÂº ÃÂ§ÃÂÃÂÃÂÃÂ§ÃÂ¦ÃÂ: <b>{fmt(final)} {currency_name}</b>\n\n"
+            f"{'Ã¢ÂÂ' * 20}\n"
+            f"Ã°ÂÂÂ <b>ÃÂªÃÂ£ÃÂ«ÃÂÃÂ± ÃÂ§ÃÂÃÂªÃÂ¶ÃÂ®ÃÂ</b> {inflation_source}\n"
+            f"{'Ã¢ÂÂ' * 20}\n\n"
+            f"Ã°ÂÂÂ» ÃÂÃÂ³ÃÂ¨ÃÂ© ÃÂ§ÃÂÃÂªÃÂ¶ÃÂ®ÃÂ: <b>{inflation_rate}%</b> ÃÂ³ÃÂÃÂÃÂÃÂ§ÃÂ\n"
+            f"Ã°ÂÂÂ¸ ÃÂ®ÃÂ³ÃÂ§ÃÂ±ÃÂ© ÃÂ§ÃÂÃÂÃÂÃÂ© ÃÂ§ÃÂÃÂ´ÃÂ±ÃÂ§ÃÂ¦ÃÂÃÂ©: <b>{fmt(purchasing_loss)} {currency_name}</b>\n"
+            f"Ã¢ÂÂ¨ ÃÂ§ÃÂÃÂ±ÃÂ¨ÃÂ­ ÃÂ§ÃÂÃÂ­ÃÂÃÂÃÂÃÂ: <b>{fmt(real_profit)} {currency_name}</b>\n\n"
         )
         result += _verdict(real_profit)
 
-    # ââââââââ Ø°ÙØ¨ ââââââââ
+    # Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ ÃÂ°ÃÂÃÂ¨ Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
     elif tool == "tool_gold":
         gold = live.get("gold")
         if not gold:
-            await bot.send_message(chat_id, "â ØªØ¹Ø°Ø± Ø¬ÙØ¨ Ø£Ø³Ø¹Ø§Ø± Ø§ÙØ°ÙØ¨ Ø­Ø§ÙÙØ§Ù. Ø¬Ø±Ø¨ ØªØ§ÙÙ Ø¨Ø¹Ø¯ Ø´ÙÙØ©.")
+            await bot.send_message(chat_id, "Ã¢ÂÂ ÃÂªÃÂ¹ÃÂ°ÃÂ± ÃÂ¬ÃÂÃÂ¨ ÃÂ£ÃÂ³ÃÂ¹ÃÂ§ÃÂ± ÃÂ§ÃÂÃÂ°ÃÂÃÂ¨ ÃÂ­ÃÂ§ÃÂÃÂÃÂ§ÃÂ. ÃÂ¬ÃÂ±ÃÂ¨ ÃÂªÃÂ§ÃÂÃÂ ÃÂ¨ÃÂ¹ÃÂ¯ ÃÂ´ÃÂÃÂÃÂ©.")
             return
 
         current_price = gold["current_gram_local"]
@@ -527,33 +527,33 @@ async def calculate_and_send(chat_id: int, data: dict, state: FSMContext):
         real_profit = profit - purchasing_loss
 
         result = (
-            f"<b>ð¥ ÙØªÙØ¬Ø© Ø§ÙØ§Ø³ØªØ«ÙØ§Ø± ÙÙ Ø§ÙØ°ÙØ¨</b>\n"
+            f"<b>Ã°ÂÂ¥Â ÃÂÃÂªÃÂÃÂ¬ÃÂ© ÃÂ§ÃÂÃÂ§ÃÂ³ÃÂªÃÂ«ÃÂÃÂ§ÃÂ± ÃÂÃÂ ÃÂ§ÃÂÃÂ°ÃÂÃÂ¨</b>\n"
             f"{PHARAOH_LINE}\n\n"
-            f"{GOLD_DIAMOND} Ø§ÙÙØ¨ÙØº: <b>{fmt(amount)} {currency_name}</b>\n"
-            f"{GOLD_DIAMOND} Ø§ÙÙØ¯Ø©: <b>{dur_text}</b>\n\n"
-            f"ð <b>Ø£Ø³Ø¹Ø§Ø± ÙØ­Ø¸ÙØ©:</b>\n"
-            f"   Ø³Ø¹Ø± Ø§ÙØ¬Ø±Ø§Ù Ø§ÙØ¢Ù: <b>{fmt(current_price)} {currency_name}</b>\n"
-            f"   (${fmt(gold['current_gram_usd'])} Ø¹Ø§ÙÙÙØ§Ù)\n\n"
-            f"ð® <b>Ø§ÙØªÙÙØ¹Ø§Øª</b> (ÙÙÙ {gold['growth_rate']}% Ø³ÙÙÙØ§Ù):\n"
-            f"   Ø§ÙØ³Ø¹Ø± Ø§ÙÙØªÙÙØ¹ Ø¨Ø¹Ø¯ {dur_text}: <b>{fmt(expected_price)} {currency_name}</b>\n\n"
-            f"{'â' * 20}\n"
-            f"âï¸ ÙØªØ´ØªØ±Ù: <b>{fmt(grams)} Ø¬Ø±Ø§Ù</b>\n"
-            f"ðµ Ø§ÙÙÙÙØ© Ø§ÙÙØªÙÙØ¹Ø©: <b>{fmt(future_value)} {currency_name}</b>\n"
-            f"ð Ø§ÙØ±Ø¨Ø­ Ø§ÙÙØªÙÙØ¹: <b>{fmt(profit)} {currency_name}</b>\n\n"
-            f"{'â' * 20}\n"
-            f"ð <b>ØªØ£Ø«ÙØ± Ø§ÙØªØ¶Ø®Ù</b> {inflation_source}\n"
-            f"{'â' * 20}\n\n"
-            f"ð» Ø§ÙØªØ¶Ø®Ù: <b>{inflation_rate}%</b> Ø³ÙÙÙØ§Ù\n"
-            f"ð¸ Ø®Ø³Ø§Ø±Ø© Ø§ÙÙÙØ© Ø§ÙØ´Ø±Ø§Ø¦ÙØ©: <b>{fmt(purchasing_loss)} {currency_name}</b>\n"
-            f"â¨ Ø§ÙØ±Ø¨Ø­ Ø§ÙØ­ÙÙÙÙ: <b>{fmt(real_profit)} {currency_name}</b>\n\n"
+            f"{GOLD_DIAMOND} ÃÂ§ÃÂÃÂÃÂ¨ÃÂÃÂº: <b>{fmt(amount)} {currency_name}</b>\n"
+            f"{GOLD_DIAMOND} ÃÂ§ÃÂÃÂÃÂ¯ÃÂ©: <b>{dur_text}</b>\n\n"
+            f"Ã°ÂÂÂ <b>ÃÂ£ÃÂ³ÃÂ¹ÃÂ§ÃÂ± ÃÂÃÂ­ÃÂ¸ÃÂÃÂ©:</b>\n"
+            f"   ÃÂ³ÃÂ¹ÃÂ± ÃÂ§ÃÂÃÂ¬ÃÂ±ÃÂ§ÃÂ ÃÂ§ÃÂÃÂ¢ÃÂ: <b>{fmt(current_price)} {currency_name}</b>\n"
+            f"   (${fmt(gold['current_gram_usd'])} ÃÂ¹ÃÂ§ÃÂÃÂÃÂÃÂ§ÃÂ)\n\n"
+            f"Ã°ÂÂÂ® <b>ÃÂ§ÃÂÃÂªÃÂÃÂÃÂ¹ÃÂ§ÃÂª</b> (ÃÂÃÂÃÂ {gold['growth_rate']}% ÃÂ³ÃÂÃÂÃÂÃÂ§ÃÂ):\n"
+            f"   ÃÂ§ÃÂÃÂ³ÃÂ¹ÃÂ± ÃÂ§ÃÂÃÂÃÂªÃÂÃÂÃÂ¹ ÃÂ¨ÃÂ¹ÃÂ¯ {dur_text}: <b>{fmt(expected_price)} {currency_name}</b>\n\n"
+            f"{'Ã¢ÂÂ' * 20}\n"
+            f"Ã¢ÂÂÃ¯Â¸Â ÃÂÃÂªÃÂ´ÃÂªÃÂ±ÃÂ: <b>{fmt(grams)} ÃÂ¬ÃÂ±ÃÂ§ÃÂ</b>\n"
+            f"Ã°ÂÂÂµ ÃÂ§ÃÂÃÂÃÂÃÂÃÂ© ÃÂ§ÃÂÃÂÃÂªÃÂÃÂÃÂ¹ÃÂ©: <b>{fmt(future_value)} {currency_name}</b>\n"
+            f"Ã°ÂÂÂ ÃÂ§ÃÂÃÂ±ÃÂ¨ÃÂ­ ÃÂ§ÃÂÃÂÃÂªÃÂÃÂÃÂ¹: <b>{fmt(profit)} {currency_name}</b>\n\n"
+            f"{'Ã¢ÂÂ' * 20}\n"
+            f"Ã°ÂÂÂ <b>ÃÂªÃÂ£ÃÂ«ÃÂÃÂ± ÃÂ§ÃÂÃÂªÃÂ¶ÃÂ®ÃÂ</b> {inflation_source}\n"
+            f"{'Ã¢ÂÂ' * 20}\n\n"
+            f"Ã°ÂÂÂ» ÃÂ§ÃÂÃÂªÃÂ¶ÃÂ®ÃÂ: <b>{inflation_rate}%</b> ÃÂ³ÃÂÃÂÃÂÃÂ§ÃÂ\n"
+            f"Ã°ÂÂÂ¸ ÃÂ®ÃÂ³ÃÂ§ÃÂ±ÃÂ© ÃÂ§ÃÂÃÂÃÂÃÂ© ÃÂ§ÃÂÃÂ´ÃÂ±ÃÂ§ÃÂ¦ÃÂÃÂ©: <b>{fmt(purchasing_loss)} {currency_name}</b>\n"
+            f"Ã¢ÂÂ¨ ÃÂ§ÃÂÃÂ±ÃÂ¨ÃÂ­ ÃÂ§ÃÂÃÂ­ÃÂÃÂÃÂÃÂ: <b>{fmt(real_profit)} {currency_name}</b>\n\n"
         )
         result += _verdict(real_profit)
 
-    # ââââââââ Ø¯ÙÙØ§Ø± ââââââââ
+    # Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ ÃÂ¯ÃÂÃÂÃÂ§ÃÂ± Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
     elif tool == "tool_usd":
         hc = live.get("hard_currency")
         if not hc:
-            await bot.send_message(chat_id, "â ØªØ¹Ø°Ø± Ø¬ÙØ¨ Ø£Ø³Ø¹Ø§Ø± Ø§ÙØµØ±Ù Ø­Ø§ÙÙØ§Ù. Ø¬Ø±Ø¨ ØªØ§ÙÙ.")
+            await bot.send_message(chat_id, "Ã¢ÂÂ ÃÂªÃÂ¹ÃÂ°ÃÂ± ÃÂ¬ÃÂÃÂ¨ ÃÂ£ÃÂ³ÃÂ¹ÃÂ§ÃÂ± ÃÂ§ÃÂÃÂµÃÂ±ÃÂ ÃÂ­ÃÂ§ÃÂÃÂÃÂ§ÃÂ. ÃÂ¬ÃÂ±ÃÂ¨ ÃÂªÃÂ§ÃÂÃÂ.")
             return
 
         current_rate = hc["current_rate"]
@@ -566,28 +566,28 @@ async def calculate_and_send(chat_id: int, data: dict, state: FSMContext):
         real_profit = profit - purchasing_loss
 
         result = (
-            f"<b>ðµ ÙØªÙØ¬Ø© Ø§ÙØ§Ø³ØªØ«ÙØ§Ø± ÙÙ Ø§ÙØ¯ÙÙØ§Ø±</b>\n"
+            f"<b>Ã°ÂÂÂµ ÃÂÃÂªÃÂÃÂ¬ÃÂ© ÃÂ§ÃÂÃÂ§ÃÂ³ÃÂªÃÂ«ÃÂÃÂ§ÃÂ± ÃÂÃÂ ÃÂ§ÃÂÃÂ¯ÃÂÃÂÃÂ§ÃÂ±</b>\n"
             f"{PHARAOH_LINE}\n\n"
-            f"{GOLD_DIAMOND} Ø§ÙÙØ¨ÙØº: <b>{fmt(amount)} {currency_name}</b>\n"
-            f"{GOLD_DIAMOND} Ø§ÙÙØ¯Ø©: <b>{dur_text}</b>\n\n"
-            f"ð <b>Ø³Ø¹Ø± ÙØ­Ø¸Ù:</b>\n"
-            f"   Ø§ÙØ¯ÙÙØ§Ø± Ø§ÙØ¢Ù: <b>{fmt(current_rate)} {currency_name}</b>\n\n"
-            f"ð® <b>Ø§ÙØªÙÙØ¹Ø§Øª</b> (ØªØºÙØ± {hc['change_rate']}% Ø³ÙÙÙØ§Ù):\n"
-            f"   Ø§ÙØ³Ø¹Ø± Ø§ÙÙØªÙÙØ¹ Ø¨Ø¹Ø¯ {dur_text}: <b>{fmt(expected_rate)} {currency_name}</b>\n\n"
-            f"{'â' * 20}\n"
-            f"ð² ÙØªØ´ØªØ±Ù: <b>{fmt(dollars)} Ø¯ÙÙØ§Ø±</b>\n"
-            f"ðµ Ø§ÙÙÙÙØ© Ø§ÙÙØªÙÙØ¹Ø©: <b>{fmt(future_value)} {currency_name}</b>\n"
-            f"ð Ø§ÙØ±Ø¨Ø­ Ø§ÙÙØªÙÙØ¹: <b>{fmt(profit)} {currency_name}</b>\n\n"
-            f"{'â' * 20}\n"
-            f"ð <b>ØªØ£Ø«ÙØ± Ø§ÙØªØ¶Ø®Ù</b> {inflation_source}\n"
-            f"{'â' * 20}\n\n"
-            f"ð» Ø§ÙØªØ¶Ø®Ù: <b>{inflation_rate}%</b> Ø³ÙÙÙØ§Ù\n"
-            f"ð¸ Ø®Ø³Ø§Ø±Ø© Ø§ÙÙÙØ© Ø§ÙØ´Ø±Ø§Ø¦ÙØ©: <b>{fmt(purchasing_loss)} {currency_name}</b>\n"
-            f"â¨ Ø§ÙØ±Ø¨Ø­ Ø§ÙØ­ÙÙÙÙ: <b>{fmt(real_profit)} {currency_name}</b>\n\n"
+            f"{GOLD_DIAMOND} ÃÂ§ÃÂÃÂÃÂ¨ÃÂÃÂº: <b>{fmt(amount)} {currency_name}</b>\n"
+            f"{GOLD_DIAMOND} ÃÂ§ÃÂÃÂÃÂ¯ÃÂ©: <b>{dur_text}</b>\n\n"
+            f"Ã°ÂÂÂ <b>ÃÂ³ÃÂ¹ÃÂ± ÃÂÃÂ­ÃÂ¸ÃÂ:</b>\n"
+            f"   ÃÂ§ÃÂÃÂ¯ÃÂÃÂÃÂ§ÃÂ± ÃÂ§ÃÂÃÂ¢ÃÂ: <b>{fmt(current_rate)} {currency_name}</b>\n\n"
+            f"Ã°ÂÂÂ® <b>ÃÂ§ÃÂÃÂªÃÂÃÂÃÂ¹ÃÂ§ÃÂª</b> (ÃÂªÃÂºÃÂÃÂ± {hc['change_rate']}% ÃÂ³ÃÂÃÂÃÂÃÂ§ÃÂ):\n"
+            f"   ÃÂ§ÃÂÃÂ³ÃÂ¹ÃÂ± ÃÂ§ÃÂÃÂÃÂªÃÂÃÂÃÂ¹ ÃÂ¨ÃÂ¹ÃÂ¯ {dur_text}: <b>{fmt(expected_rate)} {currency_name}</b>\n\n"
+            f"{'Ã¢ÂÂ' * 20}\n"
+            f"Ã°ÂÂÂ² ÃÂÃÂªÃÂ´ÃÂªÃÂ±ÃÂ: <b>{fmt(dollars)} ÃÂ¯ÃÂÃÂÃÂ§ÃÂ±</b>\n"
+            f"Ã°ÂÂÂµ ÃÂ§ÃÂÃÂÃÂÃÂÃÂ© ÃÂ§ÃÂÃÂÃÂªÃÂÃÂÃÂ¹ÃÂ©: <b>{fmt(future_value)} {currency_name}</b>\n"
+            f"Ã°ÂÂÂ ÃÂ§ÃÂÃÂ±ÃÂ¨ÃÂ­ ÃÂ§ÃÂÃÂÃÂªÃÂÃÂÃÂ¹: <b>{fmt(profit)} {currency_name}</b>\n\n"
+            f"{'Ã¢ÂÂ' * 20}\n"
+            f"Ã°ÂÂÂ <b>ÃÂªÃÂ£ÃÂ«ÃÂÃÂ± ÃÂ§ÃÂÃÂªÃÂ¶ÃÂ®ÃÂ</b> {inflation_source}\n"
+            f"{'Ã¢ÂÂ' * 20}\n\n"
+            f"Ã°ÂÂÂ» ÃÂ§ÃÂÃÂªÃÂ¶ÃÂ®ÃÂ: <b>{inflation_rate}%</b> ÃÂ³ÃÂÃÂÃÂÃÂ§ÃÂ\n"
+            f"Ã°ÂÂÂ¸ ÃÂ®ÃÂ³ÃÂ§ÃÂ±ÃÂ© ÃÂ§ÃÂÃÂÃÂÃÂ© ÃÂ§ÃÂÃÂ´ÃÂ±ÃÂ§ÃÂ¦ÃÂÃÂ©: <b>{fmt(purchasing_loss)} {currency_name}</b>\n"
+            f"Ã¢ÂÂ¨ ÃÂ§ÃÂÃÂ±ÃÂ¨ÃÂ­ ÃÂ§ÃÂÃÂ­ÃÂÃÂÃÂÃÂ: <b>{fmt(real_profit)} {currency_name}</b>\n\n"
         )
         result += _verdict(real_profit)
 
-    result += f"\n<i>ð¢ Ø§ÙÙØªØ§Ø¦Ø¬ ØªÙØ¯ÙØ±ÙØ© ÙÙÙØ³Øª ÙØµÙØ­Ø© ÙØ§ÙÙØ©</i>"
+    result += f"\n<i>Ã°ÂÂÂ¢ ÃÂ§ÃÂÃÂÃÂªÃÂ§ÃÂ¦ÃÂ¬ ÃÂªÃÂÃÂ¯ÃÂÃÂ±ÃÂÃÂ© ÃÂÃÂÃÂÃÂ³ÃÂª ÃÂÃÂµÃÂÃÂ­ÃÂ© ÃÂÃÂ§ÃÂÃÂÃÂ©</i>"
 
     btns = await result_buttons()
     await send_logo(chat_id, result, reply_markup=btns)
@@ -596,14 +596,14 @@ async def calculate_and_send(chat_id: int, data: dict, state: FSMContext):
 
 def _verdict(real_profit: float) -> str:
     if real_profit > 0:
-        return f"â <b>Ø§Ø³ØªØ«ÙØ§Ø±Ù ÙØªØºÙØ¨ Ø¹ÙÙ Ø§ÙØªØ¶Ø®Ù!</b> ð"
+        return f"Ã¢ÂÂ <b>ÃÂ§ÃÂ³ÃÂªÃÂ«ÃÂÃÂ§ÃÂ±ÃÂ ÃÂÃÂªÃÂºÃÂÃÂ¨ ÃÂ¹ÃÂÃÂ ÃÂ§ÃÂÃÂªÃÂ¶ÃÂ®ÃÂ!</b> Ã°ÂÂÂ"
     else:
-        return f"â ï¸ <b>Ø§Ø³ØªØ«ÙØ§Ø±Ù ÙØ§ ÙØªØºÙØ¨ Ø¹ÙÙ Ø§ÙØªØ¶Ø®Ù</b>"
+        return f"Ã¢ÂÂ Ã¯Â¸Â <b>ÃÂ§ÃÂ³ÃÂªÃÂ«ÃÂÃÂ§ÃÂ±ÃÂ ÃÂÃÂ§ ÃÂÃÂªÃÂºÃÂÃÂ¨ ÃÂ¹ÃÂÃÂ ÃÂ§ÃÂÃÂªÃÂ¶ÃÂ®ÃÂ</b>"
 
 
-# ââââââââââââââââââââââââââââââââââââââ
-#           ÙÙØ­Ø© ØªØ­ÙÙ Ø§ÙØ£Ø¯ÙÙ
-# ââââââââââââââââââââââââââââââââââââââ
+# Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+#           ÃÂÃÂÃÂ­ÃÂ© ÃÂªÃÂ­ÃÂÃÂ ÃÂ§ÃÂÃÂ£ÃÂ¯ÃÂÃÂ
+# Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 
 @router.message(Command("admin"))
 async def cmd_admin(message: Message, state: FSMContext):
@@ -616,29 +616,29 @@ async def cmd_admin(message: Message, state: FSMContext):
     by_country = await get_users_by_country()
 
     country_stats = "\n".join(
-        [f"   {c or 'ØºÙØ± ÙØ­Ø¯Ø¯'}: {n}" for c, n in by_country[:10]]
-    ) if by_country else "   ÙØ§ ÙÙØ¬Ø¯"
+        [f"   {c or 'ÃÂºÃÂÃÂ± ÃÂÃÂ­ÃÂ¯ÃÂ¯'}: {n}" for c, n in by_country[:10]]
+    ) if by_country else "   ÃÂÃÂ§ ÃÂÃÂÃÂ¬ÃÂ¯"
 
     text = (
-        f"<b>âï¸ ÙÙØ­Ø© ØªØ­ÙÙ Ø§ÙØ£Ø¯ÙÙ</b>\n"
+        f"<b>Ã¢ÂÂÃ¯Â¸Â ÃÂÃÂÃÂ­ÃÂ© ÃÂªÃÂ­ÃÂÃÂ ÃÂ§ÃÂÃÂ£ÃÂ¯ÃÂÃÂ</b>\n"
         f"{PHARAOH_LINE}\n\n"
-        f"ð¥ Ø§ÙÙØ³ØªØ®Ø¯ÙÙÙ: <b>{users}</b>\n"
-        f"ð Ø­Ø³Ø¨ Ø§ÙØ¯ÙÙØ©:\n{country_stats}\n\n"
-        f"<b>ð Ø§ÙØ¥Ø¹Ø¯Ø§Ø¯Ø§Øª:</b>\n"
-        f"ð¥ ÙÙÙ Ø§ÙØ°ÙØ¨ Ø§ÙØ³ÙÙÙ: <b>{settings.get('gold_annual_growth', 10)}%</b>\n"
-        f"ðµ ØªØºÙØ± Ø§ÙØ¹ÙÙØ© Ø§ÙØ³ÙÙÙ: <b>{settings.get('currency_annual_change', 8)}%</b>\n"
-        f"ð ØªØ¶Ø®Ù Ø§ÙØªØ±Ø§Ø¶Ù: <b>{settings.get('fallback_inflation', 15)}%</b>\n"
-        f"ð Ø±Ø§Ø¨Ø·: <a href=\"{settings.get('result_link_url', '#')}\">"
-        f"{settings.get('result_link_text', 'Ø§ÙÙÙÙØ¹')}</a>\n"
+        f"Ã°ÂÂÂ¥ ÃÂ§ÃÂÃÂÃÂ³ÃÂªÃÂ®ÃÂ¯ÃÂÃÂÃÂ: <b>{users}</b>\n"
+        f"Ã°ÂÂÂ ÃÂ­ÃÂ³ÃÂ¨ ÃÂ§ÃÂÃÂ¯ÃÂÃÂÃÂ©:\n{country_stats}\n\n"
+        f"<b>Ã°ÂÂÂ ÃÂ§ÃÂÃÂ¥ÃÂ¹ÃÂ¯ÃÂ§ÃÂ¯ÃÂ§ÃÂª:</b>\n"
+        f"Ã°ÂÂ¥Â ÃÂÃÂÃÂ ÃÂ§ÃÂÃÂ°ÃÂÃÂ¨ ÃÂ§ÃÂÃÂ³ÃÂÃÂÃÂ: <b>{settings.get('gold_annual_growth', 10)}%</b>\n"
+        f"Ã°ÂÂÂµ ÃÂªÃÂºÃÂÃÂ± ÃÂ§ÃÂÃÂ¹ÃÂÃÂÃÂ© ÃÂ§ÃÂÃÂ³ÃÂÃÂÃÂ: <b>{settings.get('currency_annual_change', 8)}%</b>\n"
+        f"Ã°ÂÂÂ ÃÂªÃÂ¶ÃÂ®ÃÂ ÃÂ§ÃÂÃÂªÃÂ±ÃÂ§ÃÂ¶ÃÂ: <b>{settings.get('fallback_inflation', 15)}%</b>\n"
+        f"Ã°ÂÂÂ ÃÂ±ÃÂ§ÃÂ¨ÃÂ·: <a href=\"{settings.get('result_link_url', '#')}\">"
+        f"{settings.get('result_link_text', 'ÃÂ§ÃÂÃÂÃÂÃÂÃÂ¹')}</a>\n"
     )
 
     kb = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="ð¥ ÙÙÙ Ø§ÙØ°ÙØ¨ Ø§ÙØ³ÙÙÙ %", callback_data="edit_gold_annual_growth")],
-        [InlineKeyboardButton(text="ðµ ØªØºÙØ± Ø§ÙØ¹ÙÙØ© Ø§ÙØ³ÙÙÙ %", callback_data="edit_currency_annual_change")],
-        [InlineKeyboardButton(text="ð ØªØ¶Ø®Ù Ø§ÙØªØ±Ø§Ø¶Ù %", callback_data="edit_fallback_inflation")],
-        [InlineKeyboardButton(text="ð ØªØ¹Ø¯ÙÙ Ø§ÙØ±Ø§Ø¨Ø·", callback_data="edit_result_link")],
+        [InlineKeyboardButton(text="Ã°ÂÂ¥Â ÃÂÃÂÃÂ ÃÂ§ÃÂÃÂ°ÃÂÃÂ¨ ÃÂ§ÃÂÃÂ³ÃÂÃÂÃÂ %", callback_data="edit_gold_annual_growth")],
+        [InlineKeyboardButton(text="Ã°ÂÂÂµ ÃÂªÃÂºÃÂÃÂ± ÃÂ§ÃÂÃÂ¹ÃÂÃÂÃÂ© ÃÂ§ÃÂÃÂ³ÃÂÃÂÃÂ %", callback_data="edit_currency_annual_change")],
+        [InlineKeyboardButton(text="Ã°ÂÂÂ ÃÂªÃÂ¶ÃÂ®ÃÂ ÃÂ§ÃÂÃÂªÃÂ±ÃÂ§ÃÂ¶ÃÂ %", callback_data="edit_fallback_inflation")],
+        [InlineKeyboardButton(text="Ã°ÂÂÂ ÃÂªÃÂ¹ÃÂ¯ÃÂÃÂ ÃÂ§ÃÂÃÂ±ÃÂ§ÃÂ¨ÃÂ·", callback_data="edit_result_link")],
         [InlineKeyboardButton(
-            text="ð¢ Ø±Ø³Ø§ÙØ© Ø¬ÙØ§Ø¹ÙØ©",
+            text="Ã°ÂÂÂ¢ ÃÂ±ÃÂ³ÃÂ§ÃÂÃÂ© ÃÂ¬ÃÂÃÂ§ÃÂ¹ÃÂÃÂ©",
             callback_data="admin_broadcast"
         )],
     ])
@@ -649,14 +649,14 @@ async def cmd_admin(message: Message, state: FSMContext):
 
 @router.message(Command("myid"))
 async def cmd_myid(message: Message):
-    await message.answer(f"ð ÙØ¹Ø±ÙÙ: <code>{message.from_user.id}</code>",
+    await message.answer(f"Ã°ÂÂÂ ÃÂÃÂ¹ÃÂ±ÃÂÃÂ: <code>{message.from_user.id}</code>",
                          parse_mode=ParseMode.HTML)
 
 
 SETTING_LABELS = {
-    "gold_annual_growth": "ÙØ³Ø¨Ø© ÙÙÙ Ø§ÙØ°ÙØ¨ Ø§ÙØ³ÙÙÙØ© %",
-    "currency_annual_change": "ÙØ³Ø¨Ø© ØªØºÙØ± Ø§ÙØ¹ÙÙØ© Ø§ÙØ³ÙÙÙØ© %",
-    "fallback_inflation": "ÙØ³Ø¨Ø© Ø§ÙØªØ¶Ø®Ù Ø§ÙØ§ÙØªØ±Ø§Ø¶ÙØ© %",
+    "gold_annual_growth": "ÃÂÃÂ³ÃÂ¨ÃÂ© ÃÂÃÂÃÂ ÃÂ§ÃÂÃÂ°ÃÂÃÂ¨ ÃÂ§ÃÂÃÂ³ÃÂÃÂÃÂÃÂ© %",
+    "currency_annual_change": "ÃÂÃÂ³ÃÂ¨ÃÂ© ÃÂªÃÂºÃÂÃÂ± ÃÂ§ÃÂÃÂ¹ÃÂÃÂÃÂ© ÃÂ§ÃÂÃÂ³ÃÂÃÂÃÂÃÂ© %",
+    "fallback_inflation": "ÃÂÃÂ³ÃÂ¨ÃÂ© ÃÂ§ÃÂÃÂªÃÂ¶ÃÂ®ÃÂ ÃÂ§ÃÂÃÂ§ÃÂÃÂªÃÂ±ÃÂ§ÃÂ¶ÃÂÃÂ© %",
 }
 
 
@@ -670,7 +670,7 @@ async def edit_setting(callback: CallbackQuery, state: FSMContext):
     if key == "result_link":
         await state.set_state(AdminStates.waiting_link_text)
         await callback.message.answer(
-            "ð <b>ØªØ¹Ø¯ÙÙ Ø§ÙØ±Ø§Ø¨Ø·</b>\n\nØ§ÙØªØ¨ ÙØµ Ø§ÙØ²Ø± Ø§ÙØ¬Ø¯ÙØ¯:",
+            "Ã°ÂÂÂ <b>ÃÂªÃÂ¹ÃÂ¯ÃÂÃÂ ÃÂ§ÃÂÃÂ±ÃÂ§ÃÂ¨ÃÂ·</b>\n\nÃÂ§ÃÂÃÂªÃÂ¨ ÃÂÃÂµ ÃÂ§ÃÂÃÂ²ÃÂ± ÃÂ§ÃÂÃÂ¬ÃÂ¯ÃÂÃÂ¯:",
             parse_mode=ParseMode.HTML
         )
         return
@@ -682,8 +682,8 @@ async def edit_setting(callback: CallbackQuery, state: FSMContext):
     await state.update_data(editing_key=key)
     await state.set_state(AdminStates.waiting_setting_value)
     await callback.message.answer(
-        f"âï¸ <b>{SETTING_LABELS[key]}</b>\n\n"
-        f"Ø§ÙÙÙÙØ© Ø§ÙØ­Ø§ÙÙØ©: <b>{current}</b>\n\nØ§ÙØªØ¨ Ø§ÙÙÙÙØ© Ø§ÙØ¬Ø¯ÙØ¯Ø©:",
+        f"Ã¢ÂÂÃ¯Â¸Â <b>{SETTING_LABELS[key]}</b>\n\n"
+        f"ÃÂ§ÃÂÃÂÃÂÃÂÃÂ© ÃÂ§ÃÂÃÂ­ÃÂ§ÃÂÃÂÃÂ©: <b>{current}</b>\n\nÃÂ§ÃÂÃÂªÃÂ¨ ÃÂ§ÃÂÃÂÃÂÃÂÃÂ© ÃÂ§ÃÂÃÂ¬ÃÂ¯ÃÂÃÂ¯ÃÂ©:",
         parse_mode=ParseMode.HTML
     )
 
@@ -695,14 +695,14 @@ async def save_setting_value(message: Message, state: FSMContext):
     try:
         value = float(message.text.strip())
     except ValueError:
-        await message.answer("â Ø£Ø¯Ø®Ù Ø±ÙÙ ØµØ­ÙØ­!")
+        await message.answer("Ã¢ÂÂ ÃÂ£ÃÂ¯ÃÂ®ÃÂ ÃÂ±ÃÂÃÂ ÃÂµÃÂ­ÃÂÃÂ­!")
         return
 
     data = await state.get_data()
     key = data["editing_key"]
     await set_setting(key, value)
 
-    # ØªØ­Ø¯ÙØ« config Ø§ÙÙØ¨Ø§Ø´Ø± ÙÙ ÙØ­ØªØ§Ø¬
+    # ÃÂªÃÂ­ÃÂ¯ÃÂÃÂ« config ÃÂ§ÃÂÃÂÃÂ¨ÃÂ§ÃÂ´ÃÂ± ÃÂÃÂ ÃÂÃÂ­ÃÂªÃÂ§ÃÂ¬
     import config
     if key == "gold_annual_growth":
         config.DEFAULT_GOLD_ANNUAL_GROWTH = value
@@ -711,7 +711,7 @@ async def save_setting_value(message: Message, state: FSMContext):
 
     await state.clear()
     await message.answer(
-        f"â ØªÙ ØªØ¹Ø¯ÙÙ <b>{SETTING_LABELS[key]}</b> Ø¥ÙÙ: <b>{value}</b>\n\n/admin",
+        f"Ã¢ÂÂ ÃÂªÃÂ ÃÂªÃÂ¹ÃÂ¯ÃÂÃÂ <b>{SETTING_LABELS[key]}</b> ÃÂ¥ÃÂÃÂ: <b>{value}</b>\n\n/admin",
         parse_mode=ParseMode.HTML
     )
 
@@ -722,7 +722,7 @@ async def edit_link_text(message: Message, state: FSMContext):
         return
     await set_setting("result_link_text", message.text.strip())
     await state.set_state(AdminStates.waiting_link_url)
-    await message.answer("â Ø§ÙØ¢Ù Ø§ÙØªØ¨ Ø§ÙØ±Ø§Ø¨Ø· (URL):")
+    await message.answer("Ã¢ÂÂ ÃÂ§ÃÂÃÂ¢ÃÂ ÃÂ§ÃÂÃÂªÃÂ¨ ÃÂ§ÃÂÃÂ±ÃÂ§ÃÂ¨ÃÂ· (URL):")
 
 
 @router.message(AdminStates.waiting_link_url)
@@ -731,14 +731,14 @@ async def edit_link_url(message: Message, state: FSMContext):
         return
     url = message.text.strip()
     if not (url.startswith("http://") or url.startswith("https://") or url.startswith("tg://")):
-        await message.answer("â Ø§ÙØ±Ø§Ø¨Ø· ÙØ§Ø²Ù ÙØ¨Ø¯Ø£ Ø¨Ù http:// Ø£Ù https://")
+        await message.answer("Ã¢ÂÂ ÃÂ§ÃÂÃÂ±ÃÂ§ÃÂ¨ÃÂ· ÃÂÃÂ§ÃÂ²ÃÂ ÃÂÃÂ¨ÃÂ¯ÃÂ£ ÃÂ¨ÃÂ http:// ÃÂ£ÃÂ https://")
         return
     await set_setting("result_link_url", url)
     await state.clear()
-    await message.answer("â ØªÙ ØªØ­Ø¯ÙØ« Ø§ÙØ±Ø§Ø¨Ø·!\n\n/admin")
+    await message.answer("Ã¢ÂÂ ÃÂªÃÂ ÃÂªÃÂ­ÃÂ¯ÃÂÃÂ« ÃÂ§ÃÂÃÂ±ÃÂ§ÃÂ¨ÃÂ·!\n\n/admin")
 
 
-# ââ Broadcast ââ
+# Ã¢ÂÂÃ¢ÂÂ Broadcast Ã¢ÂÂÃ¢ÂÂ
 
 @router.callback_query(F.data == "admin_broadcast")
 async def broadcast_start(callback: CallbackQuery, state: FSMContext):
@@ -746,8 +746,8 @@ async def broadcast_start(callback: CallbackQuery, state: FSMContext):
         return
     await state.set_state(AdminStates.waiting_broadcast_message)
     await callback.message.answer(
-        "ð¢ <b>Ø±Ø³Ø§ÙØ© Ø¬ÙØ§Ø¹ÙØ©</b>\n\n"
-        "Ø§ÙØªØ¨ Ø§ÙØ±Ø³Ø§ÙØ© (ÙØ¯Ø¹Ù HTML)\n/cancel ÙÙØ¥ÙØºØ§Ø¡",
+        "Ã°ÂÂÂ¢ <b>ÃÂ±ÃÂ³ÃÂ§ÃÂÃÂ© ÃÂ¬ÃÂÃÂ§ÃÂ¹ÃÂÃÂ©</b>\n\n"
+        "ÃÂ§ÃÂÃÂªÃÂ¨ ÃÂ§ÃÂÃÂ±ÃÂ³ÃÂ§ÃÂÃÂ© (ÃÂÃÂ¯ÃÂ¹ÃÂ HTML)\n/cancel ÃÂÃÂÃÂ¥ÃÂÃÂºÃÂ§ÃÂ¡",
         parse_mode=ParseMode.HTML
     )
 
@@ -755,7 +755,7 @@ async def broadcast_start(callback: CallbackQuery, state: FSMContext):
 @router.message(Command("cancel"))
 async def cmd_cancel(message: Message, state: FSMContext):
     await state.clear()
-    await message.answer("â ØªÙ Ø§ÙØ¥ÙØºØ§Ø¡")
+    await message.answer("Ã¢ÂÂ ÃÂªÃÂ ÃÂ§ÃÂÃÂ¥ÃÂÃÂºÃÂ§ÃÂ¡")
 
 
 @router.message(AdminStates.waiting_broadcast_message)
@@ -767,7 +767,7 @@ async def broadcast_send(message: Message, state: FSMContext):
     total = len(user_ids)
     success = failed = 0
 
-    status = await message.answer(f"ð¤ Ø¬Ø§Ø±Ù Ø§ÙØ¥Ø±Ø³Ø§Ù ÙÙ {total}...")
+    status = await message.answer(f"Ã°ÂÂÂ¤ ÃÂ¬ÃÂ§ÃÂ±ÃÂ ÃÂ§ÃÂÃÂ¥ÃÂ±ÃÂ³ÃÂ§ÃÂ ÃÂÃÂ {total}...")
 
     for uid in user_ids:
         try:
@@ -780,12 +780,12 @@ async def broadcast_send(message: Message, state: FSMContext):
             await asyncio.sleep(1)
 
     await status.edit_text(
-        f"â <b>ØªÙ Ø§ÙØ¥Ø±Ø³Ø§Ù</b>\n\nð Ø§ÙØ¥Ø¬ÙØ§ÙÙ: {total}\nâ ÙØ¬Ø§Ø­: {success}\nâ ÙØ´Ù: {failed}",
+        f"Ã¢ÂÂ <b>ÃÂªÃÂ ÃÂ§ÃÂÃÂ¥ÃÂ±ÃÂ³ÃÂ§ÃÂ</b>\n\nÃ°ÂÂÂ ÃÂ§ÃÂÃÂ¥ÃÂ¬ÃÂÃÂ§ÃÂÃÂ: {total}\nÃ¢ÂÂ ÃÂÃÂ¬ÃÂ§ÃÂ­: {success}\nÃ¢ÂÂ ÃÂÃÂ´ÃÂ: {failed}",
         parse_mode=ParseMode.HTML
     )
 
 
-# ââ Fallback ââ
+# Ã¢ÂÂÃ¢ÂÂ Fallback Ã¢ÂÂÃ¢ÂÂ
 
 @router.message()
 async def fallback(message: Message, state: FSMContext):
@@ -795,23 +795,24 @@ async def fallback(message: Message, state: FSMContext):
     if current is None:
         is_sub = await check_subscription(message.from_user.id)
         if not is_sub:
-            await message.answer("â ï¸ Ø§Ø´ØªØ±Ù ÙÙ Ø§ÙÙÙØ§Ø©!", reply_markup=sub_kb())
+            await message.answer("Ã¢ÂÂ Ã¯Â¸Â ÃÂ§ÃÂ´ÃÂªÃÂ±ÃÂ ÃÂÃÂ ÃÂ§ÃÂÃÂÃÂÃÂ§ÃÂ©!", reply_markup=sub_kb())
         else:
-            await message.answer(f"Ø§ÙØªØ¨ /start Ø¹Ø´Ø§Ù ØªØ¨Ø¯Ø£ {ANKH}")
+            await message.answer(f"ÃÂ§ÃÂÃÂªÃÂ¨ /start ÃÂ¹ÃÂ´ÃÂ§ÃÂ ÃÂªÃÂ¨ÃÂ¯ÃÂ£ {ANKH}")
 
 
-# ââââââââââââââââââââââââââââââââââââââ
-#              Ø§ÙØªØ´ØºÙÙ
-# ââââââââââââââââââââââââââââââââââââââ
+# Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+#              ÃÂ§ÃÂÃÂªÃÂ´ÃÂºÃÂÃÂ
+# Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 
-async def on_startup(b: Bot):
+async def on_startup(b: Bot = None):
+    b = b or bot
     await init_db()
     if USE_WEBHOOK:
         await b.set_webhook(WEBHOOK_URL)
         logger.info(f"Webhook: {WEBHOOK_URL}")
 
 
-async def on_shutdown(b: Bot):
+async def on_shutdown(b: Bot = None):
     if USE_WEBHOOK:
         await b.delete_webhook()
     await b.session.close()
