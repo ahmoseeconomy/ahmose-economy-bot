@@ -39,3 +39,7 @@ WORLD_BANK_INFLATION_API = (
 # ===== التوقعات الافتراضية (نسب سنوية) =====
 DEFAULT_GOLD_ANNUAL_GROWTH = 10.0   # متوسط نمو الذهب سنوياً %
 DEFAULT_CURRENCY_ANNUAL_CHANGE = 8.0  # متوسط تغير العملة سنوياً %
+
+# ===== سعر الذهب الاحتياطي (لو كل الـ APIs فشلت) =====
+# سعر جرام الذهب بالدولار - حدّثه يدوياً كل فترة
+FALLBACK_GOLD_PRICE_USD = float(os.getenv("FALLBACK_GOLD_PRICE_USD", "100.0"))
