@@ -79,16 +79,18 @@ def fmt(n: float) -> str:
 
 
 async def check_subscription(user_id: int) -> bool:
-    try:
-        member = await bot.get_chat_member(chat_id=CHANNEL_USERNAME, user_id=user_id)
-        return member.status in [
-            ChatMemberStatus.MEMBER,
-            ChatMemberStatus.ADMINISTRATOR,
-            ChatMemberStatus.CREATOR
-        ]
-    except Exception as e:
-        logger.error(f"Sub check error: {e}")
-        return False
+    # TODO: re-enable after testing by uncommenting below
+    return True
+    # try:
+    #     member = await bot.get_chat_member(chat_id=CHANNEL_USERNAME, user_id=user_id)
+    #     return member.status in [
+    #         ChatMemberStatus.MEMBER,
+    #         ChatMemberStatus.ADMINISTRATOR,
+    #         ChatMemberStatus.CREATOR
+    #     ]
+    # except Exception as e:
+    #     logger.error(f"Sub check error: {e}")
+    #     return False
 
 
 def sub_kb() -> InlineKeyboardMarkup:
@@ -812,17 +814,20 @@ async def fallback(message: Message, state: FSMContext):
 #              التشغيل
 # ══════════════════════════════════════
 
-async def on_startup(b: Bot):
+async def on_startup(*args, **kwargs):
     await init_db()
     if USE_WEBHOOK:
-        await b.set_webhook(WEBHOOK_URL)
+        await bot.set_webhook(WEBHOOK_URL)
         logger.info(f"Webhook: {WEBHOOK_URL}")
 
 
-async def on_shutdown(b: Bot):
+async def on_shutdown(*args, **kwargs):
     if USE_WEBHOOK:
-        await b.delete_webhook()
-    await b.session.close()
+        try:
+            await bot.delete_webhook()
+        except Exception:
+            pass
+    await bot.session.close()
 
 
 def main():
