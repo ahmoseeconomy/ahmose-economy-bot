@@ -5,9 +5,11 @@
 """
 
 import asyncio
+import json
 import logging
 import os
 import sys
+from datetime import datetime, timezone, timedelta
 from aiogram import Bot, Dispatcher, Router, F
 from aiogram.types import (
     Message, CallbackQuery, InlineKeyboardButton,
@@ -988,11 +990,121 @@ async def catch_all_message(message: Message, state: FSMContext):
     if current_state is None:
         await cmd_start(message, state)
 
+# ══════════════════════════════════════
+#         التنبيهات اليومية
+# ══════════════════════════════════════
+
+
+CAIRO_TZ = timezone(timedelta(hours=2))
+NOTIFICATION_HOUR = 9
+GOLD_PRICE_FILE = "last_gold_price.json"
+
+
+def _load_last_gold_price():
+    try:
+        with open(GOLD_PRICE_FILE, "r") as f:
+            data = json.load(f)
+            return data.get("price_usd")
+    except Exception:
+        return None
+
+
+def _save_gold_price(price_usd):
+    try:
+        with open(GOLD_PRICE_FILE, "w") as f:
+            json.dump({"price_usd": price_usd, "date": datetime.now(CAIRO_TZ).isoformat()}, f)
+    except Exception as e:
+        logger.error(f"Failed to save gold price: {e}")
+
+
+async def send_daily_notification():
+    try:
+        gold = await get_gold_price_local("EGP")
+        if not gold:
+            logger.warning("Daily notification: Could not fetch gold price")
+            return
+
+        current_usd = gold["current_gram_usd"]
+        current_local = gold["current_gram_local"]
+        last_price = _load_last_gold_price()
+
+        if last_price and last_price > 0:
+            change_pct = ((current_usd - last_price) / last_price) * 100
+            if abs(change_pct) < 0.01:
+                direction = "مستقر"
+                emoji = "➡️"
+            elif change_pct > 0:
+                direction = "ارتفع"
+                emoji = "🔺"
+            else:
+                direction = "انخفض"
+                emoji = "🔻"
+            change_text = f"{emoji} سعر الذهب {direction} بنسبة <b>{abs(change_pct):.1f}%</b>"
+        else:
+            change_text = "📊 سعر الذهب اليوم"
+            change_pct = 0
+
+        _save_gold_price(current_usd)
+
+        text = (
+            f"<b>\ud83e\udd47 تنبيه الذهب اليومي</b>\n"
+            f"{PHARAOH_LINE}\n\n"
+            f"{change_text}\n\n"
+            f"\ud83d\udcb0 سعر الجرام (عيار 24):\n"
+            f"   \ud83c\udf0d عالميا\u064b: <b>${fmt(current_usd)}</b>\n"
+            f"   \ud83c\uddea\ud83c\uddec محليا\u064b: <b>{fmt(current_local)} جنيه</b>\n\n"
+            f"{'\u2500' * 20}\n\n"
+            f"\ud83e\udd14 <b>هل محفظتك في أمان؟</b>\n"
+            f"احسب تأثير التضخم على استثمارك الآن \ud83d\udc47"
+        )
+
+        calc_btn = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text=f"{ANKH} احسب استثمارك الآن", url="https://t.me/AhmoseEconomyBot")],
+        ])
+
+        await bot.send_message(
+            chat_id=CHANNEL_USERNAME,
+            text=text,
+            parse_mode=ParseMode.HTML,
+            reply_markup=calc_btn
+        )
+        logger.info(f"Daily notification sent! Gold: {current_usd}")
+
+    except Exception as e:
+        logger.error(f"Daily notification error: {e}")
+
+
+async def daily_notification_loop():
+    logger.info("Daily notification loop started")
+    sent_today = False
+
+    while True:
+        try:
+            now = datetime.now(CAIRO_TZ)
+
+            if now.hour == NOTIFICATION_HOUR and not sent_today:
+                await send_daily_notification()
+                sent_today = True
+
+            if now.hour == 0:
+                sent_today = False
+
+            await asyncio.sleep(600)
+
+        except asyncio.CancelledError:
+            break
+        except Exception as e:
+            logger.error(f"Daily notification loop error: {e}")
+            await asyncio.sleep(600)
+
+
 async def on_startup(*args, **kwargs):
     await init_db()
     if USE_WEBHOOK:
         await bot.set_webhook(WEBHOOK_URL)
         logger.info(f"Webhook: {WEBHOOK_URL}")
+    # بدء التنبيهات اليومية في الخلفية
+    asyncio.create_task(daily_notification_loop())
 
 
 async def on_shutdown(*args, **kwargs):
@@ -1022,6 +1134,7 @@ def main():
 
 async def _poll(dp: Dispatcher):
     await init_db()
+    asyncio.create_task(daily_notification_loop())
     await dp.start_polling(bot)
 
 
