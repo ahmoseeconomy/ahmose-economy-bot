@@ -24,7 +24,7 @@ from aiohttp import web
 from config import (
     BOT_TOKEN, CHANNEL_USERNAME, CHANNEL_LINK, ADMIN_IDS,
     WEBHOOK_PATH, WEBHOOK_URL, WEBAPP_HOST, WEBAPP_PORT,
-    USE_WEBHOOK, LOGO_PATH
+    USE_WEBHOOK, LOGO_PATH, DISCUSSION_GROUP_ID
 )
 from database import (
     init_db, save_user, get_user_country, get_all_user_ids,
@@ -117,6 +117,27 @@ async def send_logo(chat_id: int, caption: str, reply_markup=None):
             parse_mode=ParseMode.HTML,
             reply_markup=reply_markup
         )
+
+
+async def send_to_discussion_group(user_name: str, result_text: str):
+    """إرسال ملخص النتيجة في جروب المحادثات المرتبط بالقناة"""
+    if not DISCUSSION_GROUP_ID:
+        return
+    try:
+        group_id = int(DISCUSSION_GROUP_ID)
+        msg = (
+            f"📊 <b>نتيجة جديدة من {user_name}</b>\n"
+            f"{PHARAOH_LINE}\n\n"
+            f"{result_text}"
+        )
+        await bot.send_message(
+            chat_id=group_id,
+            text=msg,
+            parse_mode=ParseMode.HTML,
+            disable_web_page_preview=True
+        )
+    except Exception as e:
+        logger.error(f"Discussion group send error: {e}")
 
 
 async def result_buttons() -> InlineKeyboardMarkup:
@@ -638,6 +659,15 @@ async def calculate_and_send(chat_id: int, data: dict, state: FSMContext):
 
     btns = await result_buttons()
     await send_logo(chat_id, result, reply_markup=btns)
+
+    # إرسال النتيجة في جروب المحادثات
+    try:
+        user = await bot.get_chat(chat_id)
+        user_name = user.first_name or "مستخدم"
+        await send_to_discussion_group(user_name, result)
+    except Exception as e:
+        logger.error(f"Failed to get user info for discussion: {e}")
+
     await state.clear()
 
 

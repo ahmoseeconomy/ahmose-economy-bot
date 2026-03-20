@@ -10,6 +10,7 @@ BOT_TOKEN = os.getenv("BOT_TOKEN", "YOUR_BOT_TOKEN_HERE")
 # ===== القناة =====
 CHANNEL_USERNAME = "@ahmoseeconomy"
 CHANNEL_LINK = "https://t.me/ahmoseeconomy"
+DISCUSSION_GROUP_ID = os.getenv("DISCUSSION_GROUP_ID", "")  # معرف جروب المحادثات المرتبط بالقناة
 
 # ===== الأدمن =====
 ADMIN_IDS = [int(x) for x in os.getenv("ADMIN_IDS", "0").split(",") if x.strip()]
