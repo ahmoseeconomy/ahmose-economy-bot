@@ -185,7 +185,7 @@ def duration_kb() -> InlineKeyboardMarkup:
 def tool_kb() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="🏦 شهادات بنكية", callback_data="tool_bank")],
-        [InlineKeyboardButton(text=f"🥇 ذهب (سعر لحظي)", callback_data="tool_gold")],
+        [InlineKeyboardButton(text=f"🥇 ذهب عيار 24 (سعر لحظي)", callback_data="tool_gold")],
         [InlineKeyboardButton(text="💵 عملة صعبة (دولار)", callback_data="tool_usd")],
     ])
 
@@ -357,7 +357,7 @@ async def _select_country(chat_id: int, user, country: dict, state: FSMContext):
     if live_data["gold"]:
         g = live_data["gold"]
         fb_tag = " <i>(تقديري)</i>" if g.get("is_fallback") else ""
-        summary += f"🥇 <b>الذهب:</b> {fmt(g['current_gram_local'])} {country['currency_name']}/جرام{fb_tag}\n"
+        summary += f"🥇 <b>الذهب (عيار 24):</b> {fmt(g['current_gram_local'])} {country['currency_name']}/جرام{fb_tag}\n"
         summary += f"   <i>(${fmt(g['current_gram_usd'])} عالمياً)</i>\n\n"
 
     if live_data["hard_currency"]:
@@ -564,14 +564,14 @@ async def calculate_and_send(chat_id: int, data: dict, state: FSMContext):
         real_profit = profit - purchasing_loss
 
         result = (
-            f"<b>🥇 نتيجة الاستثمار في الذهب</b>\n"
+            f"<b>🥇 نتيجة الاستثمار في الذهب (عيار 24)</b>\n"
             f"{PHARAOH_LINE}\n\n"
             f"{GOLD_DIAMOND} المبلغ: <b>{fmt(amount)} {currency_name}</b>\n"
             f"{GOLD_DIAMOND} المدة: <b>{dur_text}</b>\n\n"
             f"📊 <b>أسعار {'تقديرية' if gold.get('is_fallback') else 'لحظية'}:</b>\n"
-            f"   سعر الجرام الآن: <b>{fmt(current_price)} {currency_name}</b>\n"
+            f"   سعر جرام عيار 24: <b>{fmt(current_price)} {currency_name}</b>\n"
             f"   (${fmt(gold['current_gram_usd'])} عالمياً){' ⚠️ تقديري' if gold.get('is_fallback') else ''}\n\n"
-            f"🔮 <b>التوقعات</b> (نمو {gold['growth_rate']}% سنوياً):\n"
+            f"🔮 <b>التوقعات</b> (نمو {gold['growth_rate']}% سنوياً - متوسط آخر 20 سنة):\n"
             f"   السعر المتوقع بعد {dur_text}: <b>{fmt(expected_price)} {currency_name}</b>\n\n"
             f"{'─' * 20}\n"
             f"⚖️ هتشتري: <b>{fmt(grams)} جرام</b>\n"
