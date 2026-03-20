@@ -29,7 +29,9 @@ from config import (
 from database import (
     init_db, save_user, get_user_country, get_all_user_ids,
     get_users_count, get_users_by_country, get_setting, set_setting,
-    get_all_settings, block_user
+    get_all_settings, block_user,
+    get_active_users_count, get_new_users_count,
+    get_blocked_users_count, get_top_users, get_total_usage
 )
 from countries import ALL_COUNTRIES, search_countries, get_country_by_code, get_countries_page
 from api_fetcher import fetch_all_data, get_gold_price_local, get_hard_currency_data
@@ -681,6 +683,70 @@ def _verdict(real_profit: float) -> str:
 # ══════════════════════════════════════
 #           لوحة تحكم الأدمن
 # ══════════════════════════════════════
+
+@router.message(Command("stats"))
+async def cmd_stats(message: Message):
+    """إحصائيات مفصلة للأدمن فقط"""
+    if not is_admin(message.from_user.id):
+        return
+
+    loading = await message.answer("📊 جاري تحميل الإحصائيات...")
+
+    # جمع كل البيانات
+    total_users = await get_users_count()
+    active_24h = await get_active_users_count(24)
+    active_7d = await get_active_users_count(168)
+    active_30d = await get_active_users_count(720)
+    new_today = await get_new_users_count(24)
+    new_week = await get_new_users_count(168)
+    new_month = await get_new_users_count(720)
+    blocked = await get_blocked_users_count()
+    total_usage = await get_total_usage()
+    by_country = await get_users_by_country()
+    top_users = await get_top_users(5)
+
+    # إحصائيات الدول
+    country_stats = ""
+    for i, (code, count) in enumerate(by_country[:10]):
+        country = get_country_by_code(code) if code else None
+        flag = country["flag"] if country else "🏳️"
+        name = country["name_ar"] if country else "غير محدد"
+        country_stats += f"  {flag} {name}: <b>{count}</b>\n"
+
+    # أكثر المستخدمين نشاطاً
+    top_stats = ""
+    for uid, fname, uname, ucount, ccode in top_users:
+        display = fname or uname or str(uid)
+        top_stats += f"  👤 {display}: <b>{ucount}</b> مرة\n"
+
+    text = (
+        f"<b>📊 إحصائيات بوت اقتصاد أحمس</b>\n"
+        f"{PHARAOH_LINE}\n\n"
+        f"<b>👥 المستخدمين:</b>\n"
+        f"  📌 الإجمالي: <b>{total_users}</b>\n"
+        f"  🟢 نشط آخر 24 ساعة: <b>{active_24h}</b>\n"
+        f"  🔵 نشط آخر 7 أيام: <b>{active_7d}</b>\n"
+        f"  ⚪ نشط آخر 30 يوم: <b>{active_30d}</b>\n"
+        f"  🚫 محظور: <b>{blocked}</b>\n\n"
+        f"<b>🆕 المستخدمين الجدد:</b>\n"
+        f"  اليوم: <b>{new_today}</b>\n"
+        f"  هذا الأسبوع: <b>{new_week}</b>\n"
+        f"  هذا الشهر: <b>{new_month}</b>\n\n"
+        f"<b>📈 الاستخدام:</b>\n"
+        f"  إجمالي العمليات: <b>{total_usage}</b>\n\n"
+        f"<b>🌍 حسب الدولة (أعلى 10):</b>\n"
+        f"{country_stats}\n"
+        f"<b>🏆 أكثر المستخدمين نشاطاً:</b>\n"
+        f"{top_stats}"
+    )
+
+    try:
+        await loading.delete()
+    except Exception:
+        pass
+
+    await message.answer(text, parse_mode=ParseMode.HTML)
+
 
 @router.message(Command("admin"))
 async def cmd_admin(message: Message, state: FSMContext):
