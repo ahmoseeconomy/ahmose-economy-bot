@@ -142,13 +142,22 @@ async def send_to_discussion_group(user_name: str, result_text: str):
         logger.error(f"Discussion group send error: {e}")
 
 
-async def result_buttons() -> InlineKeyboardMarkup:
+async def result_buttons(share_text: str = "") -> InlineKeyboardMarkup:
     link_text = await get_setting("result_link_text")
     link_url = await get_setting("result_link_url")
-    return InlineKeyboardMarkup(inline_keyboard=[
+    buttons = [
         [InlineKeyboardButton(text=f"🌐 {link_text}", url=link_url)],
-        [InlineKeyboardButton(text=f"{ANKH} حساب جديد", callback_data="new_calc")]
-    ])
+    ]
+    # زرار المشاركة
+    if share_text:
+        from urllib.parse import quote
+        share_url = f"https://t.me/share/url?url=https://t.me/AhmoseEconomyBot&text={quote(share_text)}"
+        buttons.append([InlineKeyboardButton(
+            text="🛡️ شارك النتيجة مع أصدقائك ليتجنبوا الخسارة",
+            url=share_url
+        )])
+    buttons.append([InlineKeyboardButton(text=f"{ANKH} حساب جديد", callback_data="new_calc")])
+    return InlineKeyboardMarkup(inline_keyboard=buttons)
 
 
 def is_admin(uid: int) -> bool:
@@ -659,7 +668,30 @@ async def calculate_and_send(chat_id: int, data: dict, state: FSMContext):
 
     result += f"\n<i>📢 النتائج تقديرية وليست نصيحة مالية</i>"
 
-    btns = await result_buttons()
+    # بناء نص المشاركة المختصر
+    share_lines = []
+    if tool == "cert":
+        bank_rate = data.get("bank_rate", 0)
+        share_lines.append(f"🏦 شهادة بنكية بفائدة {bank_rate}%")
+    elif tool == "gold":
+        share_lines.append("🥇 استثمار في الذهب")
+    elif tool == "dollar":
+        share_lines.append("💵 استثمار في العملة الصعبة")
+    share_lines.append(f"💰 المبلغ: {fmt(amount)} {currency_name}")
+    share_lines.append(f"⏳ المدة: {dur_text}")
+    share_lines.append(f"🔻 التضخم: {inflation_rate}%")
+    if tool == "cert":
+        bank_rate = data.get("bank_rate", 0)
+        real_r = bank_rate - inflation_rate
+        if real_r < 0:
+            share_lines.append(f"❌ خسارة حقيقية: {abs(round(real_r, 1))}%")
+        else:
+            share_lines.append(f"✅ ربح حقيقي: {round(real_r, 1)}%")
+    share_lines.append("")
+    share_lines.append("احسب استثمارك الآن مع بوت اقتصاد أحمس 👇")
+    share_text = "\n".join(share_lines)
+
+    btns = await result_buttons(share_text)
     await send_logo(chat_id, result, reply_markup=btns)
 
     # إرسال النتيجة في جروب المحادثات
