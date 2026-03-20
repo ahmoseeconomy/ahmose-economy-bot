@@ -79,18 +79,17 @@ def fmt(n: float) -> str:
 
 
 async def check_subscription(user_id: int) -> bool:
-    # TODO: re-enable after testing by uncommenting below
-    return True
-    # try:
-    #     member = await bot.get_chat_member(chat_id=CHANNEL_USERNAME, user_id=user_id)
-    #     return member.status in [
-    #         ChatMemberStatus.MEMBER,
-    #         ChatMemberStatus.ADMINISTRATOR,
-    #         ChatMemberStatus.CREATOR
-    #     ]
-    # except Exception as e:
-    #     logger.error(f"Sub check error: {e}")
-    #     return False
+    """التحقق من اشتراك المستخدم في القناة"""
+    try:
+        member = await bot.get_chat_member(chat_id=CHANNEL_USERNAME, user_id=user_id)
+        return member.status in [
+            ChatMemberStatus.MEMBER,
+            ChatMemberStatus.ADMINISTRATOR,
+            ChatMemberStatus.CREATOR
+        ]
+    except Exception as e:
+        logger.error(f"Sub check error: {e}")
+        return False
 
 
 def sub_kb() -> InlineKeyboardMarkup:
