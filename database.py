@@ -39,6 +39,7 @@ async def init_db():
             )
         """)
         await db.commit()
+
         for key, value in DEFAULT_SETTINGS.items():
             await db.execute(
                 "INSERT OR IGNORE INTO settings (key, value) VALUES (?, ?)",
@@ -47,9 +48,8 @@ async def init_db():
         await db.commit()
 
 
-async def save_user(user_id: int, username: str = None,
-                    first_name: str = None, last_name: str = None,
-                    country_code: str = None, currency: str = None):
+async def save_user(user_id: int, username: str = None, first_name: str = None,
+                    last_name: str = None, country_code: str = None, currency: str = None):
     now = time.time()
     async with aiosqlite.connect(DATABASE_PATH) as db:
         await db.execute("""
@@ -64,16 +64,14 @@ async def save_user(user_id: int, username: str = None,
                 currency = COALESCE(excluded.currency, currency),
                 last_use = excluded.last_use,
                 usage_count = usage_count + 1
-        """, (user_id, username, first_name, last_name,
-              country_code, currency, now, now))
+        """, (user_id, username, first_name, last_name, country_code, currency, now, now))
         await db.commit()
 
 
 async def get_user_country(user_id: int) -> tuple | None:
     async with aiosqlite.connect(DATABASE_PATH) as db:
         cursor = await db.execute(
-            "SELECT country_code, currency FROM users WHERE user_id = ?",
-            (user_id,)
+            "SELECT country_code, currency FROM users WHERE user_id = ?", (user_id,)
         )
         row = await cursor.fetchone()
         if row and row[0]:
@@ -121,7 +119,7 @@ async def get_setting(key: str):
         row = await cursor.fetchone()
         if row:
             return json.loads(row[0])
-        return DEFAULT_SETTINGS.get(key)
+    return DEFAULT_SETTINGS.get(key)
 
 
 async def set_setting(key: str, value):
@@ -138,3 +136,63 @@ async def get_all_settings() -> dict:
         cursor = await db.execute("SELECT key, value FROM settings")
         rows = await cursor.fetchall()
         return {row[0]: json.loads(row[1]) for row in rows}
+
+
+# ═══════════════════════════════════════
+# دوال الإحصائيات المتقدمة
+# ═══════════════════════════════════════
+
+async def get_active_users_count(hours: int = 24) -> int:
+    """عدد المستخدمين النشطين في آخر N ساعة"""
+    cutoff = time.time() - (hours * 3600)
+    async with aiosqlite.connect(DATABASE_PATH) as db:
+        cursor = await db.execute(
+            "SELECT COUNT(*) FROM users WHERE last_use >= ? AND is_blocked = 0",
+            (cutoff,)
+        )
+        row = await cursor.fetchone()
+        return row[0]
+
+
+async def get_new_users_count(hours: int = 24) -> int:
+    """عدد المستخدمين الجدد في آخر N ساعة"""
+    cutoff = time.time() - (hours * 3600)
+    async with aiosqlite.connect(DATABASE_PATH) as db:
+        cursor = await db.execute(
+            "SELECT COUNT(*) FROM users WHERE first_use >= ?",
+            (cutoff,)
+        )
+        row = await cursor.fetchone()
+        return row[0]
+
+
+async def get_blocked_users_count() -> int:
+    """عدد المستخدمين المحظورين"""
+    async with aiosqlite.connect(DATABASE_PATH) as db:
+        cursor = await db.execute(
+            "SELECT COUNT(*) FROM users WHERE is_blocked = 1"
+        )
+        row = await cursor.fetchone()
+        return row[0]
+
+
+async def get_top_users(limit: int = 10) -> list:
+    """أكثر المستخدمين استخداماً"""
+    async with aiosqlite.connect(DATABASE_PATH) as db:
+        cursor = await db.execute(
+            "SELECT user_id, first_name, username, usage_count, country_code "
+            "FROM users WHERE is_blocked = 0 "
+            "ORDER BY usage_count DESC LIMIT ?",
+            (limit,)
+        )
+        return await cursor.fetchall()
+
+
+async def get_total_usage() -> int:
+    """إجمالي عدد الاستخدامات"""
+    async with aiosqlite.connect(DATABASE_PATH) as db:
+        cursor = await db.execute(
+            "SELECT COALESCE(SUM(usage_count), 0) FROM users"
+        )
+        row = await cursor.fetchone()
+        return row[0]
