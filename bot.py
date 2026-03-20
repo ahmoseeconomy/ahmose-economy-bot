@@ -1018,16 +1018,18 @@ def _save_gold_price(price_usd):
 
 
 async def send_daily_notification():
+    """إرسال تنبيه يومي بسعر الذهب على القناة - متعدد العملات"""
     try:
-        gold = await get_gold_price_local("EGP")
-        if not gold:
+        # جلب سعر الذهب العالمي (USD)
+        gold_usd_data = await get_gold_price_local("USD")
+        if not gold_usd_data:
             logger.warning("Daily notification: Could not fetch gold price")
             return
 
-        current_usd = gold["current_gram_usd"]
-        current_local = gold["current_gram_local"]
+        current_usd = gold_usd_data["current_gram_usd"]
         last_price = _load_last_gold_price()
 
+        # حساب نسبة التغيير
         if last_price and last_price > 0:
             change_pct = ((current_usd - last_price) / last_price) * 100
             if abs(change_pct) < 0.01:
@@ -1042,20 +1044,45 @@ async def send_daily_notification():
             change_text = f"{emoji} سعر الذهب {direction} بنسبة <b>{abs(change_pct):.1f}%</b>"
         else:
             change_text = "📊 سعر الذهب اليوم"
-            change_pct = 0
 
         _save_gold_price(current_usd)
 
+        # جلب أعلى الدول من قاعدة البيانات
+        by_country = await get_users_by_country()
+        top_countries = [code for code, count in by_country[:5] if code]
+
+        # جلب أسعار الذهب بالعملات المحلية
+        local_prices = []
+        for cc in top_countries:
+            country = get_country_by_code(cc)
+            if not country:
+                continue
+            try:
+                gold_local = await get_gold_price_local(country["currency"])
+                if gold_local:
+                    local_prices.append({
+                        "flag": country["flag"],
+                        "currency_name": country["currency_name"],
+                        "price": gold_local["current_gram_local"],
+                    })
+            except Exception:
+                continue
+
+        # بناء نص الأسعار المحلية
+        local_text = ""
+        for lp in local_prices:
+            local_text += f"   {lp['flag']} {lp['currency_name']}: <b>{fmt(lp['price'])}</b>\n"
+
         text = (
-            f"<b>\ud83e\udd47 تنبيه الذهب اليومي</b>\n"
+            f"<b>🥇 تنبيه الذهب اليومي</b>\n"
             f"{PHARAOH_LINE}\n\n"
             f"{change_text}\n\n"
-            f"\ud83d\udcb0 سعر الجرام (عيار 24):\n"
-            f"   \ud83c\udf0d عالميا\u064b: <b>${fmt(current_usd)}</b>\n"
-            f"   \ud83c\uddea\ud83c\uddec محليا\u064b: <b>{fmt(current_local)} جنيه</b>\n\n"
+            f"💰 <b>سعر الجرام (عيار 24):</b>\n"
+            f"   🌍 عالمياً: <b>${fmt(current_usd)}</b>\n"
+            f"{local_text}\n"
             f"{'\u2500' * 20}\n\n"
-            f"\ud83e\udd14 <b>هل محفظتك في أمان؟</b>\n"
-            f"احسب تأثير التضخم على استثمارك الآن \ud83d\udc47"
+            f"🤔 <b>هل محفظتك في أمان؟</b>\n"
+            f"احسب تأثير التضخم على استثمارك الآن 👇"
         )
 
         calc_btn = InlineKeyboardMarkup(inline_keyboard=[
@@ -1068,11 +1095,10 @@ async def send_daily_notification():
             parse_mode=ParseMode.HTML,
             reply_markup=calc_btn
         )
-        logger.info(f"Daily notification sent! Gold: {current_usd}")
+        logger.info(f"Daily notification sent! Gold: {current_usd}, countries: {len(local_prices)}")
 
     except Exception as e:
         logger.error(f"Daily notification error: {e}")
-
 
 async def daily_notification_loop():
     logger.info("Daily notification loop started")
