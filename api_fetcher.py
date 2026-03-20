@@ -16,6 +16,36 @@ from config import (
     FALLBACK_GOLD_PRICE_USD
 )
 
+
+# ===== تحويل كود الدولة من ISO2 إلى ISO3 (للـ IMF API) =====
+ISO2_TO_ISO3 = {
+    "EG": "EGY", "SA": "SAU", "AE": "ARE", "KW": "KWT", "QA": "QAT",
+    "BH": "BHR", "OM": "OMN", "IQ": "IRQ", "JO": "JOR", "LB": "LBN",
+    "SY": "SYR", "PS": "PSE", "YE": "YEM", "LY": "LBY", "TN": "TUN",
+    "DZ": "DZA", "MA": "MAR", "SD": "SDN", "SO": "SOM", "MR": "MRT",
+    "DJ": "DJI", "KM": "COM", "TR": "TUR", "US": "USA", "GB": "GBR",
+    "DE": "DEU", "FR": "FRA", "IT": "ITA", "ES": "ESP", "NL": "NLD",
+    "BE": "BEL", "AT": "AUT", "CH": "CHE", "SE": "SWE", "NO": "NOR",
+    "DK": "DNK", "FI": "FIN", "PT": "PRT", "GR": "GRC", "PL": "POL",
+    "CZ": "CZE", "RO": "ROU", "HU": "HUN", "BG": "BGR", "HR": "HRV",
+    "RS": "SRB", "UA": "UKR", "RU": "RUS", "CN": "CHN", "JP": "JPN",
+    "KR": "KOR", "IN": "IND", "PK": "PAK", "BD": "BGD", "ID": "IDN",
+    "MY": "MYS", "TH": "THA", "VN": "VNM", "PH": "PHL", "SG": "SGP",
+    "AU": "AUS", "NZ": "NZL", "CA": "CAN", "MX": "MEX", "BR": "BRA",
+    "AR": "ARG", "CL": "CHL", "CO": "COL", "PE": "PER", "VE": "VEN",
+    "ZA": "ZAF", "NG": "NGA", "KE": "KEN", "GH": "GHA", "ET": "ETH",
+    "TZ": "TZA", "UG": "UGA", "CI": "CIV", "SN": "SEN", "CM": "CMR",
+    "IL": "ISR", "IR": "IRN", "AF": "AFG", "MM": "MMR", "KH": "KHM",
+    "LK": "LKA", "NP": "NPL", "GE": "GEO", "AZ": "AZE", "KZ": "KAZ",
+    "UZ": "UZB", "IE": "IRL", "IS": "ISL", "LU": "LUX", "MT": "MLT",
+    "CY": "CYP", "SK": "SVK", "SI": "SVN", "EE": "EST", "LV": "LVA",
+    "LT": "LTU", "AL": "ALB", "BA": "BIH", "ME": "MNE", "MK": "MKD",
+    "XK": "XKX", "MD": "MDA", "BY": "BLR", "AM": "ARM",
+}
+
+# IMF DataMapper API URL
+IMF_INFLATION_API = "https://www.imf.org/external/datamapper/api/v1/PCPIPCH/{code}"
+
 logger = logging.getLogger(__name__)
 
 # ===== كاش بسيط (عشان ما نضغطش على الـ APIs) =====
@@ -266,11 +296,58 @@ async def get_hard_currency_data(currency: str) -> dict | None:
 #           معدل التضخم
 # =============================================
 
+
+
+async def get_inflation_from_imf(country_code: str) -> dict | None:
+    """
+    جلب معدل التضخم من صندوق النقد الدولي (IMF DataMapper)
+    بيانات أحدث من البنك الدولي - بتشمل السنة الحالية وتوقعات
+    """
+    iso3 = ISO2_TO_ISO3.get(country_code.upper())
+    if not iso3:
+        return None
+
+    cache_key = f"imf_inflation_{iso3}"
+    cached = _get_cache(cache_key)
+    if cached:
+        return cached
+
+    url = IMF_INFLATION_API.format(code=iso3)
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url, timeout=aiohttp.ClientTimeout(total=15)) as resp:
+                if resp.status == 200:
+                    data = await resp.json(content_type=None)
+                    if "values" in data and "PCPIPCH" in data["values"]:
+                        country_data = data["values"]["PCPIPCH"].get(iso3, {})
+                        if country_data:
+                            import datetime
+                            current_year = str(datetime.datetime.now().year)
+                            prev_year = str(int(current_year) - 1)
+                            # نجرب السنة الحالية الأول، بعدين اللي قبلها
+                            for year in [current_year, prev_year]:
+                                if year in country_data and country_data[year] is not None:
+                                    result = {
+                                        "rate": round(country_data[year], 1),
+                                        "year": year,
+                                        "source": "IMF"
+                                    }
+                                    _set_cache(cache_key, result)
+                                    logger.info(f"IMF inflation for {country_code}: {result}")
+                                    return result
+    except Exception as e:
+        logger.warning(f"IMF inflation error for {country_code}: {e}")
+    return None
+
 async def get_inflation_rate(country_code: str) -> dict | None:
     """
-    جلب آخر معدل تضخم منشور من البنك الدولي
-    المصدر: World Bank API (مجاني)
+    جلب آخر معدل تضخم - IMF أولاً (أحدث) ثم البنك الدولي كـ fallback
     """
+    # نجرب IMF الأول (بيانات أحدث)
+    imf_result = await get_inflation_from_imf(country_code)
+    if imf_result:
+        return imf_result
+    # لو IMF مرجعش حاجة، نروح للبنك الدولي
     cache_key = f"inflation_{country_code}"
     cached = _get_cache(cache_key)
     if cached:
@@ -290,6 +367,7 @@ async def get_inflation_rate(country_code: str) -> dict | None:
                                 result = {
                                     "rate": round(val, 1),
                                     "year": year,
+                                    "source": "World Bank",
                                     "source": "World Bank"
                                 }
                                 _set_cache(cache_key, result)
