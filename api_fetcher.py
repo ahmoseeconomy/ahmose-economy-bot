@@ -115,6 +115,32 @@ async def get_gold_price_usd() -> float | None:
     if cached:
         return cached
 
+    # المصدر 0: fawazahmed0 Currency API (CDN - موثوق جداً ولحظي)
+    try:
+        async with aiohttp.ClientSession() as session:
+            for cdn_url in [
+                "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/xau.json",
+                "https://latest.currency-api.pages.dev/v1/currencies/xau.json",
+            ]:
+                try:
+                    async with session.get(
+                        cdn_url,
+                        timeout=aiohttp.ClientTimeout(total=10)
+                    ) as resp:
+                        if resp.status == 200:
+                            data = await resp.json()
+                            usd_per_oz = data.get("xau", {}).get("usd")
+                            if usd_per_oz and usd_per_oz > 100:
+                                gram_price = usd_per_oz / 31.1035
+                                _set_cache("gold_usd", gram_price)
+                                logger.info(f"\u2705 Gold from fawazahmed0 CDN: ${gram_price:.2f}/g")
+                                return gram_price
+                except Exception:
+                    continue
+    except Exception as e:
+        logger.error(f"Gold fawazahmed0 CDN error: {e}")
+
+
     # المصدر 1: frankfurter.dev (مجاني، مفتوح المصدر، يدعم XAU)
     try:
         async with aiohttp.ClientSession() as session:
