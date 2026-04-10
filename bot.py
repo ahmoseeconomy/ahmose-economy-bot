@@ -13,7 +13,7 @@ from datetime import datetime, timezone, timedelta
 from aiogram import Bot, Dispatcher, Router, F
 from aiogram.types import (
     Message, CallbackQuery, InlineKeyboardButton,
-    InlineKeyboardMarkup, FSInputFile
+    InlineKeyboardMarkup, FSInputFile, WebAppInfo
 )
 from aiogram.filters import Command, CommandStart
 from aiogram.fsm.context import FSMContext
@@ -101,6 +101,40 @@ def sub_kb() -> InlineKeyboardMarkup:
         [InlineKeyboardButton(text="📢 اشترك في القناة", url=CHANNEL_LINK)],
         [InlineKeyboardButton(text=f"{ANKH} تحققت من الاشتراك", callback_data="check_sub")]
     ])
+
+
+# ══════════════════════════════════════
+# القائمة الرئيسية (مؤشر الجاهزية + الحاسبة)
+# ══════════════════════════════════════
+SCORECARD_URL = os.environ.get("SCORECARD_URL", "https://ahmose-scorecard.vercel.app")
+
+
+def main_menu_kb() -> InlineKeyboardMarkup:
+    """القائمة الرئيسية — مؤشر الجاهزية أولاً، الحاسبة ثانياً"""
+    return InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(
+            text="📊 ابدأ مؤشر الجاهزية المالية",
+            web_app=WebAppInfo(url=SCORECARD_URL)
+        )],
+        [InlineKeyboardButton(
+            text="💰 احسب استثمارك مع التضخم",
+            callback_data="legacy_calc"
+        )],
+        [InlineKeyboardButton(text="📢 قناتنا على تليجرام", url=CHANNEL_LINK)],
+    ])
+
+
+async def show_main_menu(chat_id: int):
+    """عرض القائمة الرئيسية بعد /start"""
+    text = (
+        f"<b>{GOLD_DIAMOND} أهلاً بيك في اقتصاد أحمس {GOLD_DIAMOND}</b>\n"
+        f"{PHARAOH_LINE}\n\n"
+        "محفظتك جاهزة تواجه التضخم؟ 🤔\n\n"
+        "ابدأ بـ <b>مؤشر الجاهزية المالية</b>\n"
+        "في ٣ دقايق بس وشوف درجتك الحقيقية 👇\n\n"
+        "أو جرّب الحاسبة المتقدمة للاستثمار"
+    )
+    await send_logo(chat_id, text, reply_markup=main_menu_kb())
 
 
 async def send_logo(chat_id: int, caption: str, reply_markup=None):
@@ -252,7 +286,7 @@ async def cmd_start(message: Message, state: FSMContext):
         )
         return
 
-    await ask_country(message.chat.id, state)
+    await show_main_menu(message.chat.id)
 
 
 async def ask_country(chat_id: int, state: FSMContext):
@@ -296,6 +330,17 @@ async def check_sub_cb(callback: CallbackQuery, state: FSMContext):
 
 @router.callback_query(F.data == "new_calc")
 async def new_calc_cb(callback: CallbackQuery, state: FSMContext):
+    is_sub = await check_subscription(callback.from_user.id)
+    if not is_sub:
+        await callback.message.answer("⚠️ اشترك في القناة الأول!", reply_markup=sub_kb())
+        return
+    await ask_country(callback.message.chat.id, state)
+
+
+@router.callback_query(F.data == "legacy_calc")
+async def legacy_calc_cb(callback: CallbackQuery, state: FSMContext):
+    """زرار 'احسب استثمارك' من القائمة الرئيسية — يوجّه للحاسبة القديمة"""
+    await callback.answer()
     is_sub = await check_subscription(callback.from_user.id)
     if not is_sub:
         await callback.message.answer("⚠️ اشترك في القناة الأول!", reply_markup=sub_kb())
